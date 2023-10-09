@@ -113,7 +113,7 @@ class View implements RendererInterface
      * @var string|null
      */
     protected $layout;
-
+    var e='a';
     /**
      * Holds the sections and their data.
      *
