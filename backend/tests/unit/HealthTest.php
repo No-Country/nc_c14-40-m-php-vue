@@ -19,6 +19,8 @@ final class HealthTest extends CIUnitTestCase
     {
         $validation = Services::validation();
 
+        $example;
+
         $env = false;
 
         // Check the baseURL in .env
