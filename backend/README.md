@@ -17,12 +17,14 @@ composer install
 
 4. Delete the file extension from the file .env.example to .env and configure your environment database accordingly
 
-5. Migrate the database by typing on the terminal:
+5. Create a database in your MySQLAdmin with the name: '**nc_c14_40_database**'
+
+6. Migrate the database by typing on the terminal:
 ```
 php spark migrate
 ```
 
-6. If you want, you can insert exemple user & restaurant data (UserSeeder & RestaurantSeeder) in your database
+7. If you want, you can insert exemple user & restaurant data (UserSeeder & RestaurantSeeder) in your database
 ```
 php spark db:seed UserSeeder
 ```
