@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// user store to verify authentication
 import { useUserStore } from '../stores/user'
 // Lazy loading views
 const HomeView = () => import('@/views/HomeView.vue')
@@ -84,8 +85,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const user = useUserStore()
   if (to.meta.requiresAuth && !user.isAuthenticated) {
+    // if its not logged in and page requires it, redirects to login
     next({ name: 'login' })
-  } else if (to.meta.requiresUnauth && user.isAuthenticate) {
+  } else if (to.meta.requiresUnauth && user.isAuthenticated) {
+    // if its logged in and the page doesnt work if it is (like /login), redirects to home
     next({ name: 'home' })
   } else {
     next()
