@@ -32,17 +32,17 @@ class UserBaseMigration extends Migration
                 'type' => 'ENUM',
                 'constraint' => ['admin', 'restaurant', 'client'],
             ],
+            'remember_token' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
             'updated_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'remember_token' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
                 'null' => true,
             ]
         ]);
