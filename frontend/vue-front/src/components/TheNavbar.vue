@@ -1,27 +1,24 @@
 <script setup>
 import { RouterView } from "vue-router";
+import { mdiMagnify, mdiAccount } from "@mdi/js";
 </script>
 
 <template>
   <v-app>
-    <v-app-bar color="orange darken-1">
+    <v-toolbar color="primary">
       <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+        R
       </v-btn>
-      <v-btn>
-        Más Populares
-      </v-btn>
-      <v-btn>
-        Cerca de Mí
-      </v-btn>
-      <v-btn>
-        Nosotros
-      </v-btn>
-      <v-btn prepend-icon="mdi-account">
-        <v-icon>mdi-heart</v-icon>
-        Iniciar sesión
-      </v-btn>
-    </v-app-bar>
+      <v-item-group class="justify-self-right">
+        <v-btn icon>
+          <v-icon :icon="mdiMagnify"></v-icon>
+        </v-btn>
+        <v-btn> Más Populares </v-btn>
+        <v-btn> Cerca de Mí </v-btn>
+        <v-btn> Nosotros </v-btn>
+        <v-btn :prepend-icon="mdiAccount"> Iniciar sesión </v-btn>
+      </v-item-group>
+    </v-toolbar>
     <v-container>
       <RouterView />
     </v-container>
