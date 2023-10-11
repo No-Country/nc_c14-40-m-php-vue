@@ -13,6 +13,9 @@ import '@mdi/font/css/materialdesignicons.css';
 const vuetify = createVuetify({
   components,
   directives,
+  display: {
+    mobileBreakpoint: 'md',
+  },
   icons: {
     defaultSet: "mdi",
     aliases,
