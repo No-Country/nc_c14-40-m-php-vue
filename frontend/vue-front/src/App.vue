@@ -7,8 +7,6 @@ import TheNavbar from "./components/navbar/TheNavbar.vue";
   <v-app>
     <TheNavbar />
     <h1 class="text-center">Veutify 3</h1>
-    <v-container>
-      <RouterView />
-    </v-container>
+    <RouterView />
   </v-app>
 </template>

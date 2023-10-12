@@ -1,98 +1,79 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 // user store to verify authentication
-import { useUserStore } from '../stores/user'
-// Lazy loading views
-const HomeView = () => import('@/views/HomeView.vue')
-const LoginView = () => import('@/views/LoginView.vue')
-const RegisterView = () => import('@/views/RegisterView.vue')
-const RestaurantsView = () => import('@/views/RestaurantsView.vue')
-const RestaurantView = () => import('@/views/RestaurantView.vue')
-const TopView = () => import('@/views/TopView.vue')
-const NearMeView = () => import('@/views/NearMeView.vue')
-const AboutView = () => import('@/views/AboutView.vue')
-const AccountView = () => import('@/views/AccountView.vue')
-const RatingsView = () => import('@/views/RatingsView.vue')
-const ReservationsView = () => import('@/views/ReservationsView.vue')
+import { useUserStore } from "../stores/user";
+import authRouter from "@/modules/auth/router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: () => import("@/views/HomeView.vue"),
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-      meta: { requiresUnauth: true }
+      path: "/auth",
+      ...authRouter,
+      // meta: { requiresUnauth: true },
     },
     {
-      path: '/register',
-      name: 'register',
-      component: RegisterView,
-      meta: { requiresUnauth: true }
+      path: "/restaurants",
+      name: "restaurants",
+      component: () => import("@/views/RestaurantsView.vue"),
     },
     {
-      path: '/restaurants',
-      name: 'restaurants',
-      component: RestaurantsView
-    },
-    {
-      path: '/restaurant/:id',
-      name: 'restaurant',
+      path: "/restaurant/:id",
+      name: "restaurant",
       props: true,
-      component: RestaurantView
+      component: () => import("@/views/RestaurantView.vue"),
     },
     {
-      path: '/top',
-      name: 'top',
-      component: TopView
+      path: "/top",
+      name: "top",
+      component: () => import("@/views/TopView.vue"),
     },
     {
-      path: '/nearme',
-      name: 'nearme',
-      component: NearMeView
+      path: "/nearme",
+      name: "nearme",
+      component: () => import("@/views/NearMeView.vue"),
     },
     {
-      path: '/about',
-      name: 'about',
-      component: AboutView
+      path: "/about",
+      name: "about",
+      component: () => import("@/views/AboutView.vue"),
     },
     {
-      path: '/account',
-      name: 'account',
-      component: AccountView,
-      meta: { requiresAuth: true }
-
+      path: "/account",
+      name: "account",
+      component: () => import("@/views/AccountView.vue"),
+      meta: { requiresAuth: true },
     },
     {
-      path: '/myratings',
-      name: 'ratings',
-      component: RatingsView,
-      meta: { requiresAuth: true }
+      path: "/myratings",
+      name: "ratings",
+      component: () => import("@/views/RatingsView.vue"),
+      meta: { requiresAuth: true },
     },
     {
-      path: '/myreservations',
-      name: 'reservations',
-      component: ReservationsView,
-      meta: { requiresAuth: true }
+      path: "/myreservations",
+      name: "reservations",
+      component: () => import("@/views/ReservationsView.vue"),
+      meta: { requiresAuth: true },
     },
-  ]
-})
+  ],
+});
 
 router.beforeEach((to, from, next) => {
-  const user = useUserStore()
+  const user = useUserStore();
   if (to.meta.requiresAuth && !user.isAuthenticated) {
     // if its not logged in and page requires it, redirects to login
-    next({ name: 'login' })
+    next({ name: "login" });
   } else if (to.meta.requiresUnauth && user.isAuthenticated) {
     // if its logged in and the page doesnt work if it is (like /login), redirects to home
-    next({ name: 'home' })
+    next({ name: "home" });
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;
