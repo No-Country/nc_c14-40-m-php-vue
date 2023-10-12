@@ -19,6 +19,10 @@ class RestaurantBaseMigration extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
+            'photo' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'street' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

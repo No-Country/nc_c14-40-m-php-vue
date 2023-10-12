@@ -13,7 +13,7 @@ class RestaurantModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'street', 'borough', 'cuisine', 'tables_number', 'telephone', 'latitude', 'longitud'];
+    protected $allowedFields    = ['name', 'photo', 'street', 'borough', 'cuisine', 'tables_number', 'telephone', 'latitude', 'longitud'];
 
     // Dates
     protected $useTimestamps = false;
