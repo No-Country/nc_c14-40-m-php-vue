@@ -15,6 +15,11 @@ class RestaurantBaseMigration extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'user_id' => [
+                'type' => 'INT',
+                'constraint' => 6,
+                'unsigned' => true,
+            ],
             'name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
@@ -62,6 +67,7 @@ class RestaurantBaseMigration extends Migration
         ]);
 
         $this->forge->addKey('restaurant_id', true);
+        $this->forge->addForeignKey('user_id','users','user_id','CASCADE','SET NULL');
         $this->forge->createTable('restaurants');
     }
 
