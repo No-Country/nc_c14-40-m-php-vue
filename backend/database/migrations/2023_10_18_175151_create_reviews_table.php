@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('restaurant_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('restaurant_id')->nullable();
             $table->string('comment');
             $table->enum('score', [1, 2, 3, 4, 5]);
             $table->dateTime('review_date')->nullable();
             
-            $table->primary(['id', 'user_id', 'restaurant_id']);
+            // $table->primary(['id', 'user_id', 'restaurant_id']);
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('SET NULL');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
