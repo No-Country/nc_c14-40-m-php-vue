@@ -27,10 +27,6 @@ return new class extends Migration
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
 
             $table->timestamps();
-            
-           
-            
-            $table->timestamps();
         });
     }
 
