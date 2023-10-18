@@ -1,30 +1,43 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+// import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 import { useDisplay, useTheme } from "vuetify";
-import { mdiAccount } from "@mdi/js";
-import { computed } from "vue";
-import { useUserStore } from "../../stores/user";
+// import { mdiAccount } from "@mdi/js";
+// import { useUserStore } from "../../stores/user";
+import { useAuthStore } from "@/modules/auth/store/auth.js";
 
-const user = useUserStore();
+const router = useRouter();
+const storeAuth = useAuthStore();
+const { clearValues } = storeAuth;
+// const { getUsername } = storeToRefs(storeAuth);
+
+// const user = useUserStore();
 const { mobile } = useDisplay();
 const theme = useTheme();
 const menu = ref(null); // false or null when closed
 const primaryColor = ref(theme.current.value.colors.primary);
+
+const onLogout = () => {
+  router.push({ name: "auth" });
+  clearValues();
+};
+
 const text = computed(() => {
   if (mobile.value) return null;
-  else return user.fullname;
+  else return storeAuth.getUsername();
 });
 </script>
 
 <template>
   <v-btn
-    v-if="!user.isAuthenticated && mobile"
+    v-if="!storeAuth.status && mobile"
     :icon="mdiAccount"
     :to="{ name: 'login' }"
     class="account-button text-body-1"
   ></v-btn>
   <v-btn
-    v-else-if="!user.isAuthenticated && !mobile"
+    v-else-if="!storeAuth.status && !mobile"
     :prepend-icon="mdiAccount"
     :to="{ name: 'login' }"
     class="account-button text-body-1"
@@ -46,7 +59,9 @@ const text = computed(() => {
       <v-list-item :to="{ name: 'account' }">Perfil</v-list-item>
       <v-list-item :to="{ name: 'ratings' }">Calificaciones</v-list-item>
       <v-list-item :to="{ name: 'reservations' }">Reservaciones</v-list-item>
-      <v-list-item :to="{ name: 'home' }">Cerrar sesión</v-list-item>
+      <v-list-item @click="onLogout" :to="{ name: 'home' }"
+        >Cerrar sesión</v-list-item
+      >
     </v-menu>
     {{ text }}</v-btn
   >

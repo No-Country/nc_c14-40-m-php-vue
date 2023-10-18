@@ -1,8 +1,9 @@
 <script setup>
-import { mdiMagnify, mdiDotsVertical } from "@mdi/js";
-import { useDisplay } from "vuetify";
-import AccountMenu from "./AccountMenu.vue";
+// import { mdiMagnify, mdiDotsVertical } from "@mdi/js";
 import { ref } from "vue";
+
+import AccountMenu from "./AccountMenu.vue";
+import { useDisplay } from "vuetify";
 
 const { mobile } = useDisplay();
 const drawer = ref(false);
