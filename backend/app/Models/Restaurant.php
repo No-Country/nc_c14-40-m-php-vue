@@ -16,6 +16,11 @@ class Restaurant extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
-    
-
+    public function reservation(){
+        return $this->hasMany('App\Models\Reservation');
+    }
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
 }
