@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservation_tables', function (Blueprint $table) {
-            $table->unsignedBigInteger('reservation_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('restaurant_id');
-            $table->unsignedBigInteger('table_id');
+            $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('restaurant_id')->nullable();
+            $table->unsignedBigInteger('table_id')->nullable();
             
             // Define primary key
             $table->primary(['reservation_id', 'user_id', 'restaurant_id', 'table_id']);
