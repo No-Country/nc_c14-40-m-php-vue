@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('isTaken?');
             
             // Define primary key
-            $table->primary(['id','restaurant_id']);
+            // $table->primary(['id','restaurant_id']);
             
             // Define foreign keys
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
