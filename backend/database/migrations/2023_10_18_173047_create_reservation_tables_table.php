@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('table_id')->nullable();
             
             // Define primary key
-            $table->primary(['reservation_id', 'user_id', 'restaurant_id', 'table_id']);
+            // $table->primary(['reservation_id', 'user_id', 'restaurant_id', 'table_id']);
             
             // Define foreign keys
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
