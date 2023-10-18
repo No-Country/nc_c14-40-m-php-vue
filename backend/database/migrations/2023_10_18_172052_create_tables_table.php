@@ -16,9 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->integer('capacity');
             $table->boolean('isTaken?');
-
-
-            $table->timestamps();
             
             // Define primary key
             $table->primary(['id','restaurant_id']);
