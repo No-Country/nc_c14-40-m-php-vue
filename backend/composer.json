@@ -1,66 +1,67 @@
 {
-    "name": "codeigniter4/framework",
-    "description": "The CodeIgniter framework v4",
-    "license": "MIT",
+    "name": "laravel/laravel",
     "type": "project",
-    "homepage": "https://codeigniter.com",
-    "support": {
-        "forum": "https://forum.codeigniter.com/",
-        "source": "https://github.com/codeigniter4/CodeIgniter4",
-        "slack": "https://codeigniterchat.slack.com"
-    },
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
     "require": {
-        "php": "^7.4 || ^8.0",
-        "ext-intl": "*",
-        "ext-json": "*",
-        "ext-mbstring": "*",
-        "laminas/laminas-escaper": "^2.9",
-        "psr/log": "^1.1"
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.2",
+        "laravel/framework": "^10.10",
+        "laravel/passport": "^11.9",
+        "laravel/sanctum": "^3.2",
+        "laravel/tinker": "^2.8"
     },
     "require-dev": {
-        "codeigniter/coding-standard": "^1.5",
-        "fakerphp/faker": "^1.9",
-        "friendsofphp/php-cs-fixer": "3.13.0",
-        "kint-php/kint": "^5.0.4",
-        "mikey179/vfsstream": "^1.6",
-        "nexusphp/cs-config": "^3.6",
-        "phpunit/phpunit": "^9.1",
-        "predis/predis": "^1.1 || ^2.0"
-    },
-    "suggest": {
-        "ext-curl": "If you use CURLRequest class",
-        "ext-dom": "If you use TestResponse",
-        "ext-exif": "If you run Image class tests",
-        "ext-fileinfo": "Improves mime type detection for files",
-        "ext-gd": "If you use Image class GDHandler",
-        "ext-imagick": "If you use Image class ImageMagickHandler",
-        "ext-libxml": "If you use TestResponse",
-        "ext-memcache": "If you use Cache class MemcachedHandler with Memcache",
-        "ext-memcached": "If you use Cache class MemcachedHandler with Memcached",
-        "ext-mysqli": "If you use MySQL",
-        "ext-oci8": "If you use Oracle Database",
-        "ext-pgsql": "If you use PostgreSQL",
-        "ext-readline": "Improves CLI::input() usability",
-        "ext-redis": "If you use Cache class RedisHandler",
-        "ext-simplexml": "If you format XML",
-        "ext-sqlite3": "If you use SQLite3",
-        "ext-sqlsrv": "If you use SQL Server",
-        "ext-xdebug": "If you use CIUnitTestCase::assertHeaderEmitted()"
+        "fakerphp/faker": "^1.9.1",
+        "laravel/pint": "^1.0",
+        "laravel/sail": "^1.18",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.1",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "CodeIgniter\\": "system/"
-        },
-        "exclude-from-classmap": [
-            "**/Database/Migrations/**"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
         ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
     },
-    "scripts": {
-        "test": "phpunit"
-    }
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
