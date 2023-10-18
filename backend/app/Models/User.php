@@ -19,8 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'photo',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -42,4 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //One To Many Relationship
+    public function resturants(){
+        return $this->hasMany('App\Models\Restaurant');
+    }
 }
