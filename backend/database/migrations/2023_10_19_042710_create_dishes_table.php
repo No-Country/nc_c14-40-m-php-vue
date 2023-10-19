@@ -11,22 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservations', function (Blueprint $table) {
+        Schema::create('dishes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('restaurant_id');
-            $table->dateTime('reservation_date');
-            $table->integer('quantity_people');
-            $table->enum('state_reservation', ['PE', 'CA', 'TE'])->default('PE');
+            $table->unsignedBigInteger('id_category')->nullable();
+            $table->string('name');
             $table->decimal('price', 10, 2);
-
-            //  // Define primary key
-            // $table->primary(['id', 'user_id', 'restaurant_id']);
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-
+            $table->string('description');
             $table->timestamps();
+
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('id_category')->references('id')->on('categories')->onDelete('set null');
         });
     }
 
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('dishes');
     }
 };

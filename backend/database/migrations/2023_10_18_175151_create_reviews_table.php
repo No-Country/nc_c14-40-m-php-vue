@@ -21,8 +21,8 @@ return new class extends Migration
             
             // $table->primary(['id', 'user_id', 'restaurant_id']);
 
-            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('SET NULL');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             
             $table->timestamps();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('restaurant_id')->nullable();
+            $table->unsignedBigInteger('restaurant_id');
             $table->integer('capacity');
             $table->boolean('isTaken?');
             
@@ -21,7 +21,7 @@ return new class extends Migration
             // $table->primary(['id','restaurant_id']);
             
             // Define foreign keys
-            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('set null');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
 
             $table->timestamps();
         });
