@@ -11,8 +11,8 @@ class Review extends Model
     protected $table = 'reviews';
 
     protected $fillable = [
-        'user_id',
-        'restaurant_id',
+        // 'user_id',
+        // 'restaurant_id',
         'comment',
         'score',
         'review_date',

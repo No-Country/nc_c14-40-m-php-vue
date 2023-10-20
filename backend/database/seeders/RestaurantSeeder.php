@@ -23,7 +23,8 @@ class RestaurantSeeder extends Seeder
             'tables_number' => '10',
             'telephone' => '0123456789',
             'latitude' => '-34.56789',
-            'longitud' => '150.67890'
+            'longitud' => '150.67890',
+            'user_id' => 1
         ]);
         Restaurant::create([
             'name' => 'Tacos Jesus',
@@ -34,7 +35,8 @@ class RestaurantSeeder extends Seeder
             'tables_number' => '24',
             'telephone' => '439439203',
             'latitude' => '-5.53',
-            'longitud' => '94.55'
+            'longitud' => '94.55',
+            'user_id' => 2
         ]);
     }
 }
