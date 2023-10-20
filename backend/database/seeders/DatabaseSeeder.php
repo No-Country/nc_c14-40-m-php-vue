@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\RestaurantSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,9 +20,13 @@ class DatabaseSeeder extends Seeder
         // ]);
         
         $this->call([
-            UserSeeder::class,
-            // RestaurantSeeder::class, // <-- 2 RESTAURANTS
-            RestaurantJSONSeeder::class, // <-- +3.000 RESTAURANTS
+            UserSeeder::class, // <-- 2 USERS
+            RestaurantSeeder::class, // <-- 2 RESTAURANTS
+            // RestaurantJSONSeeder::class, // <-- +3.000 RESTAURANTS
+            TablesSeeder::class, // <-- nº de Restaurants * nº de la columna 'tables_number' de cada Restaurant
+            ReservationTableSeeder::class, // registro de reservaciones <-- PUEDE FALLAR LA MIGRACIÓN, SI FALLA VOLVER A INTENTAR!!!
+
+            ReviewsSeeder::class
         ]);
 
     }
