@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
 {
-    public function index(){
+    public function getAllRestaurants(){
         return Restaurant::all();
     }
 
-    public function showUserRestaurants($id){
+    public function showRestaurantsOfUser($id){
         if(Auth::user()->id === intval($id)){
             $restaurants = Restaurant::where('user_id', intval($id))->get();
             $count_restaurants = $restaurants->count();

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\PassportController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+# LOGIN / REGISTER ROUTES
 Route::post('register', [PassportController::class, 'register'])->name('api.register');
 Route::post('login', [PassportController::class, 'login'])->name('api.login');
 
-Route::get('/restaurants', [RestaurantController::class, 'index'])->name('api.restaurants.index');
+# RESTAURANTS ROUTES
+Route::get('/restaurants', [RestaurantController::class, 'getAllRestaurants'])->name('api.restaurants.index');
+Route::get('/restaurants/{id}', [RestaurantController::class, 'showRestaurantsOfUser'])->name('api.restaurants.showUserRestaurants')->middleware('auth:api');
 
-// De esta manera, el usuario para acceder a la ruta necesita el token de login (en este caso no hace falta crear un propio middleware) <- No token === error 500
-Route::middleware('auth:api')->get('/restaurants/{id}', [RestaurantController::class, 'showUserRestaurants'])->name('api.restaurants.showUserRestaurants');
+# REVIEWS ROUTES
+Route::get('/restaurants/reviews/latest', [ReviewController::class, 'allRestaurantsAllReviews'])->name('api.reviews');
+Route::get('/restaurant/{restaurant_id}/reviews/latest', [ReviewController::class, 'restaurantAllReviews'])->name('api.reviews.');
+Route::get('/restaurant/{restaurant_id}/reviews/rating', [ReviewController::class, 'restaurantAllReviewsRating'])->name('api.reviews.');
+Route::post('/restaurant/{restaurant_id}/review', [ReviewController::class, 'createReview'])->name('api.review.createReview')->middleware('auth:api');
