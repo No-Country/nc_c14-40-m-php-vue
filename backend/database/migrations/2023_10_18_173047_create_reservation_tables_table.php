@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('reservation_tables', function (Blueprint $table) {
             $table->unsignedBigInteger('reservation_table_specs')->nullable();
             $table->unsignedBigInteger('table_id');
-            
+            $table->unsignedBigInteger('date_id')->nullable();
             // Define primary key
             // $table->primary(['reservation_id', 'user_id', 'restaurant_id', 'table_id']);
             // Define foreign keys
             $table->foreign('reservation_table_specs')->references('id')->on('reservations_specs')->onDelete('cascade');
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
-            
+            $table->foreign('date_id')->references('id')->on('available_dates')->onDelete('set null');
+
             $table->timestamps();
         });
     }

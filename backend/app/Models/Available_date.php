@@ -23,7 +23,8 @@ class Available_date extends Model
         return $this->belongsTo('App\Models\Restaurant');
     }
 
-    public function reservation(){
-        return $this->hasMany('App\Models\Reservation');
+    public function reservation_tables()
+    {
+        return $this->belongsToMany('App\Models\ReservationTable');
     }
 }

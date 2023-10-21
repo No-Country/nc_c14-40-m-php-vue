@@ -14,7 +14,6 @@ class Table extends Model
     protected $fillable = [
         // 'restaurant_id',
         'capacity',
-        'is_Taken',
     ];
 
     public function restaurant()

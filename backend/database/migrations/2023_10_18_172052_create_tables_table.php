@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->integer('capacity');
-            $table->boolean('is_Taken');
             
             // Define primary key
             // $table->primary(['id','restaurant_id']);

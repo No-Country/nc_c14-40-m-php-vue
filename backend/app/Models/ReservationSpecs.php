@@ -35,9 +35,5 @@ class ReservationSpecs extends Model
     {
         return $this->belongsToMany('App\Models\ReservationTable');
     }
-    public function available_date()
-    {
-        return $this->belongsTo('App\Models\Available_date');
-    }
 }
 
