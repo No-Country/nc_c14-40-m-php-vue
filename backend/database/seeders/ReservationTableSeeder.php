@@ -20,22 +20,32 @@ class ReservationTableSeeder extends Seeder
         $user_count = intval(User::count());
         $restaurant_count = intval(Restaurant::count());
 
+
+        // $restaurant_selected =  rand(1, $restaurant_count); // random restaurant
+
         (new ReservationSpecsSeeder)->run();
-        $lastIdCreated = ReservationSpecs::latest()->first()->id; // recopila el id que crea en la anterior linea (23)
-        $num_of_persons = ReservationSpecs::select('quantity_people')->where('id', $lastIdCreated)->first()->quantity_people; // recopila el nº personas de linea 23
+        $reservation = ReservationSpecs::latest()->first();
 
-        $restaurant_selected =  rand(1, $restaurant_count); // random restaurant
+        // $lastIdCreated = ReservationSpecs::latest()->first()->id; // recopila el id que crea en la anterior linea (23)
+        // $num_of_persons = ReservationSpecs::select('quantity_people')->where('id', $lastIdCreated)->first()->quantity_people; // recopila el nº personas de linea 23
 
-        // ¡¡¡PUEDE NO FUNCIONAR!!!
-        // ¿POR QUE? PORQUE ASIGNA, POR EJEMPLO, EL RESTAURANTE 1 PERO COMO NO HAY CAPACIDAD DE 10 PERSONAS (porque a la hora de hacer el TablesSeeder no pone ninguna de como mínimo 10), $table_selected === null Y PETA EL MIGRATE!
-        $table_selected = Table::where('restaurant_id', $restaurant_selected)->where('capacity', '>=', $num_of_persons)->where('is_Taken', '=', false)->inRandomOrder()->first()->id;
+
+
+
+        $table_selected = Table::where('restaurant_id', $reservation->restaurant_id)->where('capacity', '>=', $reservation->quantity_people)->where('is_Taken', '=', false)->inRandomOrder()->first()->id;
         Table::where('id', $table_selected)->update(['is_taken' => true]); // table reservation
-
+        
         ReservationTable::create([
-            'reservation_table_specs' => $lastIdCreated,
-            'user_id' => rand(1, $user_count),
-            'restaurant_id' => $restaurant_selected,
-            'table_id' => $table_selected,
+                'reservation_table_specs' => $reservation->id,
+                'user_id' => $reservation->user_id,
+                'restaurant_id' => $reservation->restaurant_id,
+                'table_id' => $table_selected,
         ]);
+
+
+
+
+            // // ¡¡¡PUEDE NO FUNCIONAR!!!
+            // // ¿POR QUE? PORQUE ASIGNA, POR EJEMPLO, EL RESTAURANTE 1 PERO COMO NO HAY CAPACIDAD DE 10 PERSONAS (porque a la hora de hacer el TablesSeeder no pone ninguna de como mínimo 10), $table_selected === null Y PETA EL MIGRATE!
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('day')->unique();
             $table->time('hour_start');
             $table->time('hour_end');
-            $table->boolean('isFull?');
+            $table->boolean('isFull?')->default(false);
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->timestamps();
