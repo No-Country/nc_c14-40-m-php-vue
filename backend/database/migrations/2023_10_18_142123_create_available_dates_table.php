@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('available_dates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('restaurant_id');
-            $table->string('day')->unique();
+            $table->string('day');
             $table->time('hour_start');
             $table->time('hour_end');
             $table->boolean('isFull?')->default(false);

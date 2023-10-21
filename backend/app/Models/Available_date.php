@@ -15,7 +15,7 @@ class Available_date extends Model
         'day',
         'hour_start',
         'hour_end',
-        'isFull',
+        'isFull?',
     ];
 
     public function restaurant()

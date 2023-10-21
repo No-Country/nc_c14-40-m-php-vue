@@ -23,7 +23,7 @@ class ReservationSpecsSeeder extends Seeder
         $restaurant_selected =  rand(1, $restaurant_count); // random restaurant
 
 
-        $random_turn = Available_date::select('date_id')->where('restaurant_id', $restaurant_selected)->where('isFull', false)->inRandomOrder()->first();
+        $random_turn = Available_date::select('id')->where('restaurant_id', $restaurant_selected)->where('isFull?', false)->inRandomOrder()->first();
             
         ReservationSpecs::create([
             'quantity_people' => 10,
@@ -31,7 +31,7 @@ class ReservationSpecsSeeder extends Seeder
             'price' => 2,
             'user_id' => 1,
             'restaurant_id' => $restaurant_selected,
-            'date_id' => 0,
+            'date_id' => 1,
         ]);
     }
 }

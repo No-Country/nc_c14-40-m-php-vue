@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             RestaurantSeeder::class, // <-- 2 RESTAURANTS
             // RestaurantJSONSeeder::class, // <-- +3.000 RESTAURANTS
             TablesSeeder::class, // <-- nº de Restaurants * nº de la columna 'tables_number' de cada Restaurant
+            AvailableDateSeeder::class,
             ReservationTableSeeder::class, // registro de reservaciones <-- PUEDE FALLAR LA MIGRACIÓN, SI FALLA VOLVER A INTENTAR!!!
 
             ReviewsSeeder::class
