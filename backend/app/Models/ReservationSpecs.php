@@ -12,11 +12,12 @@ class ReservationSpecs extends Model
     protected $table = 'reservations_specs';
 
     protected $fillable = [
-        'user_id',
-        'restaurant_id',
         'quantity_people',
         'state_reservation',
         'price',
+        'user_id',
+        'restaurant_id',
+        'date_id',
     ];
 
     public function user()
