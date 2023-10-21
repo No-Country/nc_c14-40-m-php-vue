@@ -15,6 +15,7 @@ class ReservationSpecs extends Model
         'user_id',
         'restaurant_id',
         'quantity_people',
+        'date_id',
         'state_reservation',
         'price',
     ];
