@@ -20,11 +20,23 @@ class ReservationTableSeeder extends Seeder
         (new ReservationSpecsSeeder)->run();
         $reservation = ReservationSpecs::latest()->first();
 
+
+
         // // ¡¡¡PUEDE NO FUNCIONAR!!!
         // // ¿POR QUE? PORQUE ASIGNA, POR EJEMPLO, EL RESTAURANTE 1 PERO COMO NO HAY CAPACIDAD DE 10 PERSONAS (porque a la hora de hacer el TablesSeeder no pone ninguna de como mínimo 10), $table_selected === null Y PETA EL MIGRATE!
-        $table_selected = Table::where('restaurant_id', $reservation->restaurant_id)->where('capacity', '>=', $reservation->quantity_people)->where('is_Taken', '=', false)->inRandomOrder()->first()->id;
-        Table::where('id', $table_selected)->update(['is_Taken' => true]); // table reservation
+        $table_selected = Table::where('restaurant_id', $reservation->restaurant_id)->where('capacity', '>=', $reservation->quantity_people)->inRandomOrder()->first()->id;
+        // Table::where('id', $table_selected)->update(['is_Taken' => true]); // table reservation
         
+
+        $check_same_tables = ReservationTable::where('table_id', $table_selected);
+
+
+        if(in_array($check_same_tables, $table_selected)){
+            
+        }
+
+
+
         ReservationTable::create([
                 'reservation_table_specs' => $reservation->id,
                 'table_id' => $table_selected,
