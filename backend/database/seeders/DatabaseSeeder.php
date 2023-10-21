@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     {        
         User::factory(10)->create(); // <-- 10 users ≈ $this->call(UserSeeder::class) x 10;
         Restaurant::factory(200)->create(); // 200 restaurants ≈ $this->call(RestaurantSeeder::class) x 200;
+        $this->call(TablesSeeder::class); // <-- nº de Restaurants * nº de la columna 'tables_number' de cada Restaurant
 
         $this->call([
             // RestaurantJSONSeeder::class, // <-- +3.000 RESTAURANTS
-            
-            // TablesSeeder::class, // <-- nº de Restaurants * nº de la columna 'tables_number' de cada Restaurant
+
             // AvailableDateSeeder::class,
             // ReservationTableSeeder::class, // registro de reservaciones <-- PUEDE FALLAR LA MIGRACIÓN, SI FALLA VOLVER A INTENTAR!!!
 
