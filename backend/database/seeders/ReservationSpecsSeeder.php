@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 use App\Models\ReservationSpecs;
 use App\Models\User;
 use App\Models\Restaurant;
-use App\Models\Available_date;
 
 
 class ReservationSpecsSeeder extends Seeder
@@ -21,9 +20,6 @@ class ReservationSpecsSeeder extends Seeder
         $restaurant_count = intval(Restaurant::count());
         
         $restaurant_selected =  1; // random restaurant
-
-
-        $random_turn_id = Available_date::select('id')->where('restaurant_id', $restaurant_selected)->where('isFull?', false)->inRandomOrder()->first()->id;
             
         ReservationSpecs::create([
             'quantity_people' => 10,
@@ -31,7 +27,6 @@ class ReservationSpecsSeeder extends Seeder
             'price' => 2,
             'user_id' => 1,
             'restaurant_id' => $restaurant_selected,
-            'date_id' => $random_turn_id,
         ]);
     }
 }

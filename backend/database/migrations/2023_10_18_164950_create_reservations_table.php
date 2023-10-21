@@ -20,11 +20,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('restaurant_id');
-            $table->unsignedBigInteger('date_id')->nullable();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-            $table->foreign('date_id')->references('id')->on('available_dates')->onDelete('set null');
 
             $table->timestamps();
         });

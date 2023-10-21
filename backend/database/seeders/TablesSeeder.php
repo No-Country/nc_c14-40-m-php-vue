@@ -22,7 +22,6 @@ class TablesSeeder extends Seeder
             for ($j = 0 ; $j < $tablesNumber ; $j++){
                 Table::create([
                     'capacity' => rand(1,20),
-                    'is_Taken' => false, // false -> 0 ; true -> 1
                     'restaurant_id' => $i
                 ]);
             }
