@@ -17,14 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id')->nullable();
             $table->string('comment');
             $table->enum('score', [1, 2, 3, 4, 5]);
-            $table->dateTime('review_date')->nullable();
             
             // $table->primary(['id', 'user_id', 'restaurant_id']);
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
-            
+                   
             $table->timestamps();
         });
     }

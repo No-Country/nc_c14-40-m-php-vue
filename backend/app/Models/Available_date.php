@@ -5,25 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class Available_date extends Model
 {
     use HasFactory;
-    protected $table = 'reviews';
-
+    protected $table = 'available_dates';
+    
     protected $fillable = [
-        'user_id',
         'restaurant_id',
-        'comment',
-        'score'
+        'day',
+        'hour_start',
+        'hour_end',
+        'isFull',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
 
     public function restaurant()
     {
         return $this->belongsTo('App\Models\Restaurant');
+    }
+
+    public function reservation(){
+        return $this->hasMany('App\Models\Reservation');
     }
 }

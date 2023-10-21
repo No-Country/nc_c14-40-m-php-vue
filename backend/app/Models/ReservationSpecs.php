@@ -12,9 +12,8 @@ class ReservationSpecs extends Model
     protected $table = 'reservations_specs';
 
     protected $fillable = [
-        // 'user_id',
-        // 'restaurant_id',
-        'reservation_date',
+        'user_id',
+        'restaurant_id',
         'quantity_people',
         'state_reservation',
         'price',
@@ -33,6 +32,10 @@ class ReservationSpecs extends Model
     public function reservation_tables()
     {
         return $this->belongsToMany('App\Models\ReservationTable');
+    }
+    public function available_date()
+    {
+        return $this->belongsTo('App\Models\Available_date');
     }
 }
 

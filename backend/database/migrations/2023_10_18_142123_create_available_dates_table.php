@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pays', function (Blueprint $table) {
+        Schema::create('available_dates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('restaurant_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('reservation_id');
-            $table->decimal('total', 10, 2);
+            $table->string('day')->unique();
+            $table->time('hour_start');
+            $table->time('hour_end');
+            $table->boolean('isFull?');
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('reservation_id')->references('id')->on('reservations_specs')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pays');
+        Schema::dropIfExists('available_dates');
     }
 };

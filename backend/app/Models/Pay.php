@@ -15,7 +15,6 @@ class Pay extends Model
         'user_id',
         'reservation_id',
         'total',
-        'pay_date',
     ];
 
     public function reservation()

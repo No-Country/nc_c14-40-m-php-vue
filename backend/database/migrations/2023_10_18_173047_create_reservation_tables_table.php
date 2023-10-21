@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('table_id');
             
+            
             // Define primary key
             // $table->primary(['reservation_id', 'user_id', 'restaurant_id', 'table_id']);
             
