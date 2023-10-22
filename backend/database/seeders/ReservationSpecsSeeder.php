@@ -16,17 +16,15 @@ class ReservationSpecsSeeder extends Seeder
      */
     public function run(): void
     {
-        // $user_count = intval(User::count());
+        $user_count = intval(User::count());
         $restaurant_count = intval(Restaurant::count());
-        
-        $restaurant_selected =  1; // random restaurant
-            
+                    
         ReservationSpecs::create([
-            'quantity_people' => 10,
+            'quantity_people' => rand(1,15),
             'state_reservation' => "PE",
             'price' => 2,
-            'user_id' => 1,
-            'restaurant_id' => $restaurant_selected,
+            'user_id' => rand(1, $user_count),
+            'restaurant_id' => rand(1, $restaurant_count),
         ]);
     }
 }
