@@ -19,24 +19,5 @@ class ReviewsSeeder extends Seeder
             'user_id' => 1,
             'restaurant_id' => 1,
         ]);
-        Review::create([
-            'comment' => 'Esta muy bueno el restaurante',
-            'score' =>  4,
-            'user_id' => 1,
-            'restaurant_id' => 1,
-        ]);
-        Review::create([
-            'comment' => 'Esta muy bueno el restaurante',
-            'score' =>  4,
-            'user_id' => 1,
-            'restaurant_id' => 1,
-        ]);
-        Review::create([
-            'comment' => 'Esta muy bueno el restaurante',
-            'score' =>  4,
-            'user_id' => 1,
-            'restaurant_id' => 1,
-        ]);
-
     }
 }
