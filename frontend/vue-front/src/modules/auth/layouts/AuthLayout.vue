@@ -59,7 +59,9 @@ const onSubmitLogin = async () => {
               <v-row>
                 <v-col cols="12" md="7">
                   <v-card-text class="mt-lg-10 mt-0 pa-10">
-                    <h1 class="text-center display-2 teal--text text--accent-3 mb-5 text-h3">
+                    <h1
+                      class="text-center display-2 teal--text text--accent-3 mb-5 text-h3"
+                    >
                       ¡Bienvenido!
                     </h1>
                     <div class="text-center mt-4">
@@ -77,25 +79,62 @@ const onSubmitLogin = async () => {
                       Ingresa tu email y tu contraseña
                     </h4>
                     <v-form @submit.prevent="onSubmitLogin">
-                      <v-text-field v-model="useFormLogin.email" label="Email" name="Email" prepend-icon="far fa-envelope"
-                        type="text" color="teal accent-3" :rules="emailRules" />
+                      <v-text-field
+                        v-model="useFormLogin.email"
+                        label="Email"
+                        name="Email"
+                        prepend-icon="far fa-envelope"
+                        type="text"
+                        color="teal accent-3"
+                        :rules="emailRules"
+                      />
 
-                      <v-text-field v-model="useFormLogin.password" id="password" label="Password" name="password"
-                        prepend-icon="fas fa-lock" type="password" color="teal accent-3" :rules="passwordRules" />
+                      <v-text-field
+                        v-model="useFormLogin.password"
+                        id="password"
+                        label="Password"
+                        name="password"
+                        prepend-icon="fas fa-lock"
+                        type="password"
+                        color="teal accent-3"
+                        :rules="passwordRules"
+                      />
                       <div class="d-flex justify-center mt-5">
-                        <v-btn rounded color="primary" class="mb-4" dark type="submit">INGRESAR</v-btn>
+                        <v-btn
+                          rounded
+                          color="primary"
+                          class="mb-4"
+                          dark
+                          type="submit"
+                          >INGRESAR</v-btn
+                        >
                       </div>
                     </v-form>
-                    <h3 class="text-center mt-4 text-lg-body-2">¿Olvidaste tu contraseña?</h3>
+                    <h3 class="text-center mt-4 text-lg-body-2">
+                      ¿Olvidaste tu contraseña?
+                    </h3>
                   </v-card-text>
                   <div class="text-center mt-3"></div>
                 </v-col>
-                <v-col cols="12" md="5" class="teal accent-3 d-flex justify-center align-center">
-                  <v-card-text class="white--text text-center d-flex flex-column">
+                <v-col
+                  cols="12"
+                  md="5"
+                  class="teal accent-3 d-flex justify-center align-center"
+                >
+                  <v-card-text
+                    class="white--text text-center d-flex flex-column"
+                  >
                     <h1 class="mb-3 letter-spacing">Aun no eres miembro</h1>
                     <h2 class="text-body-1">Crea tu cuenta aquí</h2>
                     <div class="text-center mt-10">
-                      <v-btn color="primary" rounded outlined dark @click="step++">REGISTRARME</v-btn>
+                      <v-btn
+                        color="primary"
+                        rounded
+                        outlined
+                        dark
+                        @click="step++"
+                        >REGISTRARME</v-btn
+                      >
                     </div>
                   </v-card-text>
                 </v-col>
@@ -103,24 +142,37 @@ const onSubmitLogin = async () => {
             </v-window-item>
             <v-window-item :value="2">
               <v-row class="fill-height">
-                <v-col cols="12" md="5" class="teal accent-3 d-flex justify-center align-center">
+                <v-col
+                  cols="12"
+                  md="5"
+                  class="teal accent-3 d-flex justify-center align-center"
+                >
                   <v-card-text class="white--text mt-12 flex flex-column">
                     <h1 class="text-center text-h5 mb-3">
                       ¡Bienvenido nuevamente!
                     </h1>
-                    <h2 class="text-center text-body-2 w-75 mx-auto" >
+                    <h2 class="text-center text-body-2 w-75 mx-auto">
                       Para mantenerse conectado con nosotros, inicie sesión con
                       su información personal
                     </h2>
                     <div class="text-center mt-10">
-                      <v-btn color="primary" rounded outlined dark @click="step--">INGRESAR</v-btn>
+                      <v-btn
+                        color="primary"
+                        rounded
+                        outlined
+                        dark
+                        @click="step--"
+                        >INGRESAR</v-btn
+                      >
                     </div>
                   </v-card-text>
                 </v-col>
 
                 <v-col cols="12" md="7">
                   <v-card-text class="mt-lg-12">
-                    <h1 class="text-center display-2 teal--text text--accent-3 mb-7">
+                    <h1
+                      class="text-center display-2 teal--text text--accent-3 mb-7"
+                    >
                       Crear cuenta
                     </h1>
                     <div class="text-center mt-4">
@@ -136,16 +188,45 @@ const onSubmitLogin = async () => {
                     </div>
                     <h2 class="my-5 text-body-1">Ingresa tus datos</h2>
                     <v-form @submit.prevent="onSubmitRegister">
-                      <v-text-field v-model="useFormRegister.name" label="Name" name="Name" prepend-icon="far fa-user"
-                        type="text" color="teal accent-3" :rules="nameRules" />
-                      <v-text-field v-model="useFormRegister.email" label="Email" name="Email"
-                        prepend-icon="far fa-envelope" type="text" color="teal accent-3" :rules="emailRules" />
+                      <v-text-field
+                        v-model="useFormRegister.name"
+                        label="Name"
+                        name="Name"
+                        prepend-icon="far fa-user"
+                        type="text"
+                        color="teal accent-3"
+                        :rules="nameRules"
+                      />
+                      <v-text-field
+                        v-model="useFormRegister.email"
+                        label="Email"
+                        name="Email"
+                        prepend-icon="far fa-envelope"
+                        type="text"
+                        color="teal accent-3"
+                        :rules="emailRules"
+                      />
 
-                      <v-text-field v-model="useFormRegister.password" id="password" clearable label="Password"
-                        name="password" prepend-icon="fas fa-lock" type="password" color="teal accent-3"
-                        :rules="passwordRules" />
+                      <v-text-field
+                        v-model="useFormRegister.password"
+                        id="password"
+                        clearable
+                        label="Password"
+                        name="password"
+                        prepend-icon="fas fa-lock"
+                        type="password"
+                        color="teal accent-3"
+                        :rules="passwordRules"
+                      />
                       <div class="d-flex justify-center mt-10">
-                        <v-btn rounded color="primary" dark class="mb-4" type="submit">REGISTRARME</v-btn>
+                        <v-btn
+                          rounded
+                          color="primary"
+                          dark
+                          class="mb-4"
+                          type="submit"
+                          >REGISTRARME</v-btn
+                        >
                       </div>
                     </v-form>
                   </v-card-text>
