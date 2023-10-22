@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\PassportController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReservationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,24 @@ Route::get('/restaurants/reviews/all', [ReviewController::class, 'allRestaurants
 Route::get('/restaurant/{restaurant_id}/reviews/all', [ReviewController::class, 'restaurantAllReviews'])->name('api.reviews.restaurant.all');
 Route::get('/restaurant/{restaurant_id}/reviews/average', [ReviewController::class, 'restaurantAllReviewsRating'])->name('api.reviews.restaurant.average');
 Route::post('/restaurant/{restaurant_id}/review', [ReviewController::class, 'createReview'])->name('api.review.create')->middleware('auth:api');
+
+Route::get('/restaurant/{restaurant_id}/tables', [ReservationsController::class, 'showRestaurantTables'])->name('api.show');
+
+
+
+
+# RESERVATIONS ROUTES
+// crear una reserva
+
+// ver todas las reservas de todos los restaurantes
+// ver las reservas del restaurante
+// ver las reservas del restaurante del dia (lunes, martes...)
+// ver las reservas del restaurante del dia (lunes, martes...) a la hora concreta
+
+
+// funciones de servicio:
+// -> ver 
+// ->
+// ->
+// ->
+// ->
