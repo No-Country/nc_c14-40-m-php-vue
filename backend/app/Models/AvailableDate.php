@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Available_date extends Model
+class AvailableDate extends Model
 {
     use HasFactory;
     protected $table = 'available_dates';
