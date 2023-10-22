@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class AvailableDate extends Model
 {
     use HasFactory;
-
-    protected $table = 'tables';
-
+    protected $table = 'available_dates';
+    
     protected $fillable = [
-        // 'restaurant_id',
-        'capacity',
+        'restaurant_id',
+        'day',
+        'hour_start',
+        'hour_end',
+        'isFull?',
     ];
 
     public function restaurant()

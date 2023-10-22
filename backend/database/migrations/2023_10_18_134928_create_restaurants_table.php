@@ -21,7 +21,9 @@ return new class extends Migration
             $table->smallInteger('tables_number');
             $table->string('telephone');
             $table->string('latitude');
-            $table->string('longitud');
+            $table->string('longitude');
+            $table->time('opening_hour');
+            $table->time('closing_hour');
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

@@ -14,16 +14,15 @@ return new class extends Migration
         Schema::create('reservations_specs', function (Blueprint $table) {
             $table->id();
 
-            $table->dateTime('reservation_date');
             $table->integer('quantity_people');
             $table->enum('state_reservation', ['PE', 'CA', 'TE'])->default('PE');
             $table->decimal('price', 10, 2);
 
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            // $table->unsignedBigInteger('restaurant_id');
-            // $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('restaurant_id');
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('reservation_id');
             $table->decimal('total', 10, 2);
-            $table->dateTime('pay_date');
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -9,7 +9,7 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'photo', 'street', 'borough', 'cuisine', 'tables_number', 'telephone', 'latitude', 'longitud'];
+    protected $fillable = ['name', 'photo', 'street', 'borough', 'cuisine', 'tables_number', 'telephone', 'latitude', 'longitude','opening_hour','closing_hour'];
 
 
     //One To Many Inverse Relationship
@@ -22,5 +22,9 @@ class Restaurant extends Model
     public function reviews()
     {
         return $this->hasMany('App\Models\Review');
+    }
+    public function available_date()
+    {
+        return $this->hasMany('App\Models\Available_date');
     }
 }

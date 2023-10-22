@@ -16,30 +16,27 @@ class ReviewsSeeder extends Seeder
         Review::create([
             'comment' => 'Esta muy bueno el restaurante',
             'score' =>  4,
-            'review_date' => now(),
             'user_id' => 1,
             'restaurant_id' => 1,
         ]);
         Review::create([
-            'comment' => 'Esta vez no me gustó',
-            'score' =>  1,
-            'review_date' => now(),
+            'comment' => 'Esta muy bueno el restaurante',
+            'score' =>  4,
             'user_id' => 1,
             'restaurant_id' => 1,
         ]);
         Review::create([
-            'comment' => 'Es muy malo!',
-            'score' =>  1,
-            'review_date' => now(),
-            'user_id' => 2,
+            'comment' => 'Esta muy bueno el restaurante',
+            'score' =>  4,
+            'user_id' => 1,
             'restaurant_id' => 1,
         ]);
         Review::create([
-            'comment' => 'Le di otra oportunidad y malísimo!',
-            'score' =>  1,
-            'review_date' => now(),
-            'user_id' => 2,
+            'comment' => 'Esta muy bueno el restaurante',
+            'score' =>  4,
+            'user_id' => 1,
             'restaurant_id' => 1,
         ]);
+
     }
 }

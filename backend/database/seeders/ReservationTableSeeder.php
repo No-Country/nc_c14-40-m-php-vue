@@ -5,10 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ReservationTable;
-use App\Models\User;
-use App\Models\Restaurant;
 use App\Models\Table;
 use App\Models\ReservationSpecs;
+use App\Models\AvailableDate;
 
 class ReservationTableSeeder extends Seeder
 {
@@ -17,25 +16,38 @@ class ReservationTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $user_count = intval(User::count());
-        $restaurant_count = intval(Restaurant::count());
 
-        (new ReservationSpecsSeeder)->run();
-        $lastIdCreated = ReservationSpecs::latest()->first()->id; // recopila el id que crea en la anterior linea (23)
-        $num_of_persons = ReservationSpecs::select('quantity_people')->where('id', $lastIdCreated)->first()->quantity_people; // recopila el nº personas de linea 23
+        for($i = 0; $i < 1000 ; $i++) {
+            (new ReservationSpecsSeeder)->run();
+            $reservation = ReservationSpecs::latest()->first();
+    
+            $restaurant_have_turns = AvailableDate::where('restaurant_id', $reservation->restaurant_id)->exists();
 
-        $restaurant_selected =  rand(1, $restaurant_count); // random restaurant
+            if($restaurant_have_turns){
 
-        // ¡¡¡PUEDE NO FUNCIONAR!!!
-        // ¿POR QUE? PORQUE ASIGNA, POR EJEMPLO, EL RESTAURANTE 1 PERO COMO NO HAY CAPACIDAD DE 10 PERSONAS (porque a la hora de hacer el TablesSeeder no pone ninguna de como mínimo 10), $table_selected === null Y PETA EL MIGRATE!
-        $table_selected = Table::where('restaurant_id', $restaurant_selected)->where('capacity', '>=', $num_of_persons)->where('is_Taken', '=', false)->inRandomOrder()->first()->id;
-        Table::where('id', $table_selected)->update(['is_taken' => true]); // table reservation
+                $date_id = AvailableDate::select('id')->where('restaurant_id', $reservation->restaurant_id)->where('isFull?', false)->inRandomOrder()->first()->id;
 
-        ReservationTable::create([
-            'reservation_table_specs' => $lastIdCreated,
-            'user_id' => rand(1, $user_count),
-            'restaurant_id' => $restaurant_selected,
-            'table_id' => $table_selected,
-        ]);
+                $restaurant_have_tables_capacity = Table::select('id')->where('restaurant_id', $reservation->restaurant_id)->where('capacity', '>=', $reservation->quantity_people)->exists();
+
+                if($restaurant_have_tables_capacity){
+                    
+                    $table_selected = Table::select('id')->where('restaurant_id', $reservation->restaurant_id)->where('capacity', '>=', $reservation->quantity_people)->inRandomOrder()->first()->id;
+                    
+                    if(!ReservationTable::where('date_id', $date_id)->where('table_id', $table_selected)->exists()){
+                        ReservationTable::create([
+                            'reservation_table_specs' => $reservation->id,
+                            'table_id' => $table_selected,
+                            'date_id' => $date_id,
+                        ]);
+                    }else{
+                        // echo "¡Error! Ya existe un registro con date_id: $date_id y table_id: $table_selected".PHP_EOL; // 3a condicion: EJ: Existe ya una reserva de esa mesa con ese mismo turno
+                    }
+                }else{
+                    // echo "No hay mesas en nuestro local para tanta gente!".PHP_EOL;; // 2a condición EJ: El usuario quiere reservar una mesa para 10 en un restaurante que su mesa más grande es de 8
+                }
+            }else{
+                // echo "El restaurante que usted ha elegido, no tiene turnos que disponer por vacaciones".PHP_EOL; // 1a condición EJ: restaurant_id = 4 -> 17:00 a 17:00 === 0 turnos -> conclusión: tabla available_dates NO EXISTE restaurant_id = 4
+            }
+        }
     }
 }
