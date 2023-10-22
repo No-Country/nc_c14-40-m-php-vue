@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // user store to verify authentication
 // import { useUserStore } from "../stores/user";
 import authRouter from "@/modules/auth/router";
+import restaurantsRouter from "@/modules/restaurants/router";
 import isAuthenticatedGuard from "@/modules/auth/guards/auth-guard.js";
 
 const router = createRouter({
@@ -20,55 +21,61 @@ const router = createRouter({
     {
       path: "/restaurants",
       beforeEnter: [isAuthenticatedGuard],
-      name: "restaurants",
-      component: () => import("@/views/RestaurantsView.vue"),
+      ...restaurantsRouter,
+      // meta: { requiresUnauth: true },
     },
-    {
-      path: "/restaurant/:id",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "restaurant",
-      props: true,
-      component: () => import("@/views/RestaurantView.vue"),
-    },
-    {
-      path: "/top",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "top",
-      component: () => import("@/views/TopView.vue"),
-    },
-    {
-      path: "/nearme",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "nearme",
-      component: () => import("@/views/NearMeView.vue"),
-    },
-    {
-      path: "/about",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "about",
-      component: () => import("@/views/AboutView.vue"),
-    },
-    {
-      path: "/account",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "account",
-      component: () => import("@/views/AccountView.vue"),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: "/myratings",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "ratings",
-      component: () => import("@/views/RatingsView.vue"),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: "/myreservations",
-      beforeEnter: [isAuthenticatedGuard],
-      name: "reservations",
-      component: () => import("@/views/ReservationsView.vue"),
-      meta: { requiresAuth: true },
-    },
+    // {
+    //   path: "/restaurants",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "restaurants",
+    //   component: () => import("@/views/RestaurantsView.vue"),
+    // },
+    // {
+    //   path: "/restaurant/:id",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "restaurant",
+    //   props: true,
+    //   component: () => import("@/views/RestaurantView.vue"),
+    // },
+    // {
+    //   path: "/top",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "top",
+    //   component: () => import("@/views/TopView.vue"),
+    // },
+    // {
+    //   path: "/nearme",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "nearme",
+    //   component: () => import("@/views/NearMeView.vue"),
+    // },
+    // {
+    //   path: "/about",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "about",
+    //   component: () => import("@/views/AboutView.vue"),
+    // },
+    // {
+    //   path: "/account",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "account",
+    //   component: () => import("@/views/AccountView.vue"),
+    //   meta: { requiresAuth: true },
+    // },
+    // {
+    //   path: "/myratings",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "ratings",
+    //   component: () => import("@/views/RatingsView.vue"),
+    //   meta: { requiresAuth: true },
+    // },
+    // {
+    //   path: "/myreservations",
+    //   beforeEnter: [isAuthenticatedGuard],
+    //   name: "reservations",
+    //   component: () => import("@/views/ReservationsView.vue"),
+    //   meta: { requiresAuth: true },
+    // },
   ],
 });
 

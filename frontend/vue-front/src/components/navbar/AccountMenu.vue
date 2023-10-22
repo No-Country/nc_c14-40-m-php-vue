@@ -32,18 +32,22 @@ const text = computed(() => {
 <template>
   <v-btn
     v-if="!storeAuth.status && mobile"
-    :icon="mdiAccount"
+    icon="fas fa-lock"
     :to="{ name: 'login' }"
     class="account-button text-body-1"
   ></v-btn>
   <v-btn
     v-else-if="!storeAuth.status && !mobile"
-    :prepend-icon="mdiAccount"
+    prepend-icon="fas fa-lock"
     :to="{ name: 'login' }"
     class="account-button text-body-1"
     >Iniciar sesión</v-btn
   >
-  <v-btn v-else :prepend-icon="mdiAccount" class="account-button text-body-1">
+  <v-btn
+    v-else
+    prepend-icon="fas fa-user-circle"
+    class="account-button text-body-1"
+  >
     <template v-if="menu === false || menu === null" v-slot:prepend>
       <v-icon color="white"></v-icon>
     </template>
@@ -56,9 +60,9 @@ const text = computed(() => {
       class="account-menu"
       v-model="menu"
     >
-      <v-list-item :to="{ name: 'account' }">Perfil</v-list-item>
-      <v-list-item :to="{ name: 'ratings' }">Calificaciones</v-list-item>
-      <v-list-item :to="{ name: 'reservations' }">Reservaciones</v-list-item>
+      <v-list-item :to="{ name: 'restaurants' }">Perfil</v-list-item>
+      <v-list-item :to="{ name: 'restaurants' }">Calificaciones</v-list-item>
+      <v-list-item :to="{ name: 'restaurants' }">Reservaciones</v-list-item>
       <v-list-item @click="onLogout" :to="{ name: 'home' }"
         >Cerrar sesión</v-list-item
       >

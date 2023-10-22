@@ -6,7 +6,7 @@ export const useAuthStore = defineStore("auth", () => {
   const status = ref("authenticating");
   const user = ref(null);
   const idTokenUser = ref(null);
-  const refreshTokenUser = ref(null);
+  // const refreshTokenUser = ref(null);
 
   const currentState = computed(() => () => {
     return status.value;
@@ -17,14 +17,10 @@ export const useAuthStore = defineStore("auth", () => {
     return userName;
   });
 
-  const saveTokens = (idToken, refreshToken) => {
-    if (idToken) {
-      localStorage.setItem("idToken", idToken);
-      idTokenUser.value = idToken;
-    }
-    if (refreshToken) {
-      localStorage.setItem("refreshToken", refreshToken);
-      refreshTokenUser.value = refreshToken;
+  const saveTokens = (token) => {
+    if (token) {
+      localStorage.setItem("idToken", token);
+      idTokenUser.value = token;
     }
   };
 
@@ -32,19 +28,14 @@ export const useAuthStore = defineStore("auth", () => {
     const { name, email, password } = newUser;
 
     try {
-      const { data } = await authApi.post(":signUp", {
+      const resp = await authApi.post("/register", {
+        name,
         email,
         password,
-        returnSecureToken: true,
       });
-      const { idToken, refreshToken } = data;
+      const { token } = resp.data;
 
-      const resp = await authApi.post(":update", {
-        idToken,
-        displayName: name,
-      });
-
-      saveTokens(idToken, refreshToken);
+      saveTokens(token);
 
       delete newUser.password;
       status.value = "authenticated";
@@ -56,27 +47,19 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  const changeDisplayName = (displayName, activeUser) => {
-    if (displayName) {
-      activeUser.name = displayName;
-    }
-  };
-
   const loginUser = async (activeUser) => {
     const { email, password } = activeUser;
     try {
-      const resp = await authApi.post(":signInWithPassword", {
+      const resp = await authApi.post("/login", {
         email,
         password,
-        returnSecureToken: true,
       });
-      const { displayName, idToken, refreshToken } = resp.data;
+      const { token } = resp.data;
 
-      changeDisplayName(displayName, activeUser);
-
-      saveTokens(idToken, refreshToken);
+      saveTokens(token);
 
       status.value = "authenticated";
+      delete activeUser.password;
       user.value = activeUser;
 
       return resp;
@@ -89,7 +72,6 @@ export const useAuthStore = defineStore("auth", () => {
     status.value = "no-authenticated";
     user.value = null;
     idTokenUser.value = null;
-    refreshTokenUser.value = null;
     localStorage.removeItem("idToken");
     localStorage.removeItem("refreshToken");
     return { ok: true };
@@ -97,7 +79,6 @@ export const useAuthStore = defineStore("auth", () => {
 
   const checkAuth = async () => {
     const idToken = localStorage.getItem("idToken");
-    const refreshToken = localStorage.getItem("refreshToken");
 
     if (!idToken) {
       clearValues();
@@ -105,19 +86,7 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     try {
-      const { data } = await authApi.post(":lookup", { idToken });
-      const { displayName, email } = data.users[0];
-      const activeUser = {
-        name: displayName,
-        email,
-      };
-
-      changeDisplayName(displayName, activeUser);
-
-      saveTokens(idToken, refreshToken);
-
       status.value = "authenticated";
-      user.value = activeUser;
 
       return { ok: true };
     } catch (error) {
@@ -134,7 +103,6 @@ export const useAuthStore = defineStore("auth", () => {
     getUsername,
     idTokenUser,
     loginUser,
-    refreshTokenUser,
     status,
     user,
   };

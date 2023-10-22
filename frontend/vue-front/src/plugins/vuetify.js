@@ -1,25 +1,26 @@
 import "vuetify/styles";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
+// import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import { VSkeletonLoader } from "vuetify/labs/VSkeletonLoader";
 import { aliases, fa } from "vuetify/iconsets/fa";
 
 const vuetify = createVuetify({
-  components,
+  components: {
+    VSkeletonLoader,
+  },
   directives,
   display: {
     mobileBreakpoint: "md",
   },
-  icons: [
-    {
-      defaultSet: "fa",
-      aliases,
-      sets: {
-        fa,
-      },
+  icons: {
+    defaultSet: "fa",
+    aliases,
+    sets: {
+      fa,
     },
-  ],
+  },
   theme: {
     defaultTheme: "customTheme",
     themes: {

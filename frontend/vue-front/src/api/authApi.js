@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const authApi = axios.create({
-  baseURL: "https://identitytoolkit.googleapis.com/v1/accounts",
-  params: {
-    key: "AIzaSyCVhFLJKnsSx93Yh8xsU9HoQCJ1bhDkbLk",
-  },
+  baseURL: " https://nc-14-40.up.railway.app/api",
 });
 
 export default authApi;

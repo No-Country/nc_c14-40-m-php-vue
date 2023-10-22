@@ -1,5 +1,5 @@
 <script setup>
-// import { mdiMagnify, mdiDotsVertical } from "@mdi/js";
+// import { fas fa-magnifying-glass, mdiDotsVertical } from "@mdi/js";
 import { ref } from "vue";
 
 import AccountMenu from "./AccountMenu.vue";
@@ -15,7 +15,7 @@ const drawer = ref(false);
     <v-toolbar-items>
       <v-btn
         v-if="mobile"
-        :icon="mdiDotsVertical"
+        icon="fas fa-ellipsis-vertical"
         @click.stop="drawer = !drawer"
       ></v-btn>
       <v-btn icon :to="{ name: 'home' }"> R </v-btn>
@@ -23,26 +23,28 @@ const drawer = ref(false);
     <v-spacer></v-spacer>
     <v-toolbar-items>
       <v-btn icon>
-        <v-icon :icon="mdiMagnify"></v-icon>
+        <v-icon icon="fas fa-magnifying-glass"></v-icon>
       </v-btn>
-      <v-list-item v-if="!mobile" :to="{ name: 'top' }"
+      <v-list-item v-if="!mobile" :to="{ name: 'restaurants' }"
         >Más Populares</v-list-item
       >
-      <v-list-item v-if="!mobile" :to="{ name: 'nearme' }"
+      <v-list-item v-if="!mobile" :to="{ name: 'restaurants' }"
         >Cercanos</v-list-item
       >
-      <v-list-item v-if="!mobile" :to="{ name: 'about' }">Nosotros</v-list-item>
+      <v-list-item v-if="!mobile" :to="{ name: 'restaurants' }"
+        >Nosotros</v-list-item
+      >
       <v-list-item v-if="!mobile" :to="{ name: 'auth' }">Ingresar</v-list-item>
       <AccountMenu />
     </v-toolbar-items>
   </v-toolbar>
   <v-navigation-drawer v-if="mobile" v-model="drawer" location="bottom">
-    <v-list-item :to="{ name: 'top' }">Más Populares</v-list-item>
-    <v-list-item :to="{ name: 'nearme' }">Cercanos</v-list-item>
-    <v-list-item :to="{ name: 'about' }">Nosotros</v-list-item>
+    <v-list-item :to="{ name: 'restaurants' }">Más Populares</v-list-item>
+    <v-list-item :to="{ name: 'restaurants' }">Cercanos</v-list-item>
+    <v-list-item :to="{ name: 'restaurants' }">Nosotros</v-list-item>
     <v-list-item :to="{ name: 'auth' }">Ingresar</v-list-item>
   </v-navigation-drawer>
   <!-- </v-app> -->
 </template>
 
-<style scoped></style>
+<!-- <style scoped></style> -->
