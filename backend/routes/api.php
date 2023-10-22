@@ -30,7 +30,7 @@ Route::get('/restaurants', [RestaurantController::class, 'getAllRestaurants'])->
 Route::get('/restaurants/{id}', [RestaurantController::class, 'showRestaurantsOfUser'])->name('api.restaurants.showUserRestaurants')->middleware('auth:api');
 
 # REVIEWS ROUTES
-Route::get('/restaurants/reviews/latest', [ReviewController::class, 'allRestaurantsAllReviews'])->name('api.reviews');
-Route::get('/restaurant/{restaurant_id}/reviews/latest', [ReviewController::class, 'restaurantAllReviews'])->name('api.reviews.');
-Route::get('/restaurant/{restaurant_id}/reviews/rating', [ReviewController::class, 'restaurantAllReviewsRating'])->name('api.reviews.');
-Route::post('/restaurant/{restaurant_id}/review', [ReviewController::class, 'createReview'])->name('api.review.createReview')->middleware('auth:api');
+Route::get('/restaurants/reviews/all', [ReviewController::class, 'allRestaurantsAllReviews'])->name('api.reviews.all');
+Route::get('/restaurant/{restaurant_id}/reviews/all', [ReviewController::class, 'restaurantAllReviews'])->name('api.reviews.restaurant.all');
+Route::get('/restaurant/{restaurant_id}/reviews/average', [ReviewController::class, 'restaurantAllReviewsRating'])->name('api.reviews.restaurant.average');
+Route::post('/restaurant/{restaurant_id}/review', [ReviewController::class, 'createReview'])->name('api.review.create')->middleware('auth:api');

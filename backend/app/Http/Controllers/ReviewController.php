@@ -15,30 +15,31 @@ class ReviewController extends Controller
 {
 
     public function allRestaurantsAllReviews(){
-        return Review::orderBy('id', 'desc')->get();
+        return response(['count_reviews' => Review::count(), 'all_reviews_desc' => Review::orderBy('id', 'desc')->get()], 200);
     }
 
     public function restaurantAllReviews($restaurant_id){
-
         if(!Restaurant::find($restaurant_id)){
             return response(['error' => "Restaurant not found!"], 404); 
         }
-        return Review::where('restaurant_id', $restaurant_id)->orderBy('id', 'desc')->get();
+        return response(['count_restaurant_reviews'=> Review::where('restaurant_id', $restaurant_id)->count(), 
+                         'restaurant_all_reviews_desc' => Review::where('restaurant_id', $restaurant_id)->orderBy('id', 'desc')->get()
+                        ], 200);
     }
 
     public function restaurantAllReviewsRating($restaurant_id){
-        
-        if(!Restaurant::find($restaurant_id)){
+        $restaurant = Restaurant::find($restaurant_id);
+
+        if(!$restaurant){
             return response(['error' => "Restaurant not found!"], 404); 
         }
 
         $restaurant_reviews_addition = Review::where('restaurant_id', $restaurant_id)->sum('score');
-        $restaurant_reviews_count = count($this->restaurantAllReviews($restaurant_id));
-        return ($restaurant_reviews_addition / $restaurant_reviews_count);
+        $restaurant_reviews_count = Review::where('restaurant_id', $restaurant_id)->count();
+        return response(['restaurant_average_reviews' => ($restaurant_reviews_addition / $restaurant_reviews_count), 'restaurant' => $restaurant], 200);
     }
 
     public function createReview($restaurant_id , Request $request){
-        
         if(!Restaurant::find($restaurant_id)){
             return response(['error' => "Restaurant not found!"], 404); 
         }
@@ -60,7 +61,4 @@ class ReviewController extends Controller
         ]);
         return response(['message' => 'Review created!', 'review' => $review], 200);
     }
-
-
-
 }
