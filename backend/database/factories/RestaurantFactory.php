@@ -25,11 +25,10 @@ class RestaurantFactory extends Factory
             'cuisine' => fake()->country(),
             'tables_number' => rand(1,25),
             'telephone' => fake()->phoneNumber(),
-            'latitude' => fake()->latitude(),
-            'longitude' => fake()->longitude(),
             'user_id' => User::inRandomOrder()->first()->id,
             'opening_hour' => fake()->time($format = 'H:00:00'),
-            'closing_hour' => fake()->time($format = 'H:00:00')
+            'closing_hour' => fake()->time($format = 'H:00:00'),
+            'country' => fake()->country()
         ];
     }
 }

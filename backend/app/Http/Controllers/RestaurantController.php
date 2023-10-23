@@ -22,4 +22,99 @@ class RestaurantController extends Controller
         }
     }
 
+    public function createRestaurant(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string',
+            'photo' => 'required|string',
+            'street' => 'required|string',
+            'borough' => 'required|string',
+            'cuisine' => 'required|string',
+            'tables_number' => 'required|integer',
+            'telephone' => 'required|string',
+            'opening_hour' => 'required|time',
+            'closing_hour' => 'required|time',
+            'country'=>$request->country,
+        ]);
+
+        if($validator->fails()){
+            return response(['error' => $validator->errors()], 401); 
+        }
+        
+
+        $restaurant = Restaurant::create([
+            'name' => $request->name,
+            'photo' => $request->photo,
+            'street' => $request->street,
+            'borough' => $request->borough,
+            'cuisine' => $request->cuisine,
+            'tables_number' => $request->tables_number,
+            'telephone' => $request->telephone,
+            'opening_hour' => $request->opening_hour,
+            'closing_hour' => $request->closing_hour,
+            'country'=>$request->country,
+            'user_id' => Auth::id(),
+        ]);
+
+        return response(['message' => 'Restaurant created!', 'restaurant' => $restaurant], 200);
+    }
+
+    public function deleteRestaurant($idUser,$idRest){
+
+        if(Auth::user()->id === intval($idUser) ){
+            $restaurant = Restaurant::where('id', intval($idRest))->get();
+            if(!$restaurant){
+                return response(['error' => "The restaurant doesn't exist!"], 404);
+            }
+            else{
+                $restaurant->delete();
+                return response(['message' => "restaurant deleted successfully",'restaurant' => $restaurant], 200);
+            }
+        }else{
+            return response(['error' => "You have access denied!"], 403);
+        }
+    }
+
+    public function getRestaurant($idUser,$idRest){
+
+        if(Auth::user()->id === intval($idUser) ){
+            $restaurant = Restaurant::where('id', intval($idRest))->get();
+            if(!$restaurant){
+                return response(['error' => "The restaurant doesn't exist!"], 404);
+            }
+            else{
+                return response(['message' => "restaurant gotten successfully",'restaurant' => $restaurant], 200);
+            }
+        }else{
+            return response(['error' => "You have access denied!"], 403);
+        }
+    }
+
+    public function updateRestaurant($idUser,$idRest, Request $request){
+        if(Auth::user()->id === intval($idUser)){
+            $restaurants = Restaurant::where('id', intval($idRest))->get();
+            if(!$restaurant){
+                return response(['error' => "The restaurant doesn't exist!"], 404);
+            }
+            else{
+                $restaurant->update([
+                    'name' => $request->name,
+                    'photo' => $request->photo,
+                    'street' => $request->street,
+                    'borough' => $request->borough,
+                    'cuisine' => $request->cuisine,
+                    'tables_number' => $request->tables_number,
+                    'telephone' => $request->telephone,
+                    'opening_hour' => $request->opening_hour,
+                    'closing_hour' => $request->closing_hour,
+                    'country' => $request->country,
+                ]);
+                
+                return response(['success' => "restaurant updated successfully"], 200);
+            }
+        }else{
+            return response(['error' => "Access denied!"], 403);
+        }
+    }
+    
+
 }
