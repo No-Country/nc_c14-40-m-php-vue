@@ -9,7 +9,7 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'photo', 'street', 'borough', 'cuisine', 'tables_number', 'telephone', 'latitude', 'longitude','opening_hour','closing_hour'];
+    protected $fillable = ['name', 'photo', 'street', 'borough', 'cuisine', 'tables_number', 'telephone','opening_hour','closing_hour','country'];
 
 
     //One To Many Inverse Relationship

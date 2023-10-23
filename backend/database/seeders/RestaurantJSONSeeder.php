@@ -33,8 +33,7 @@ class RestaurantJSONSeeder extends Seeder
                     'cuisine' => $restaurant['cuisine'],
                     'tables_number' => rand(1, 100),
                     'telephone' => $restaurant['restaurant_id'],
-                    'latitude' => $restaurant['address']['coord'][1],
-                    'longitud' => $restaurant['address']['coord'][0],
+                    'country' => 'Argentina',
                     'user_id' => rand(1,2)
                 ]);
                 $id++;
