@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string('cuisine');
             $table->smallInteger('tables_number');
             $table->string('telephone');
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('country');
             $table->time('opening_hour');
             $table->time('closing_hour');
 
