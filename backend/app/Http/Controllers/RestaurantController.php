@@ -14,9 +14,9 @@ class RestaurantController extends Controller
         return Restaurant::all();
     }
 
-    public function showRestaurantsOfUser($id){
-        if(Auth::user()->id === intval($id)){
-            $restaurants = Restaurant::where('user_id', intval($id))->get();
+    public function showRestaurantsOfUser($user_id){
+        if(Auth::user()->id === intval($user_id)){
+            $restaurants = Restaurant::where('user_id', intval($user_id))->get();
             $count_restaurants = $restaurants->count();
             return response(['number_of_restaurants' => $count_restaurants, 'restaurants' => $restaurants], 200);
         }else{
@@ -68,59 +68,46 @@ class RestaurantController extends Controller
                          'restaurant' => $restaurant], 200);
     }
 
-    public function deleteRestaurant($idUser,$idRest){
+    public function deleteRestaurant($restaurant_id){
 
-        if(Auth::user()->id === intval($idUser) ){
-            $restaurant = Restaurant::where('id', intval($idRest))->get();
-            if(!$restaurant){
-                return response(['error' => "The restaurant doesn't exist!"], 404);
-            }
-            else{
-                $restaurant->delete();
-                return response(['message' => "restaurant deleted successfully",'restaurant' => $restaurant], 200);
-            }
+        $restaurant = Restaurant::find($restaurant_id);
+
+        if(!$restaurant){
+            return response(['message' => 'Restaurante no encontrado!'], 404);
+        }
+
+        if(Auth::user()->id === Restaurant::find($restaurant_id)->value('user_id') ){
+            $restaurant->delete();
+            return response(['message' => "restaurant deleted successfully",'restaurant' => $restaurant], 200);
         }else{
             return response(['error' => "You have access denied!"], 403);
         }
     }
 
-    public function getRestaurant($idUser,$idRest){
+    public function updateRestaurant(Request $request, $restaurant_id){
 
-        if(Auth::user()->id === intval($idUser) ){
-            $restaurant = Restaurant::where('id', intval($idRest))->get();
-            if(!$restaurant){
-                return response(['error' => "The restaurant doesn't exist!"], 404);
-            }
-            else{
-                return response(['message' => "restaurant gotten successfully",'restaurant' => $restaurant], 200);
-            }
-        }else{
-            return response(['error' => "You have access denied!"], 403);
+        $restaurant = Restaurant::find($restaurant_id);
+
+        if(!$restaurant){
+            return response(['message' => 'Restaurante no encontrado!'], 404);
         }
-    }
 
-    public function updateRestaurant($idUser,$idRest, Request $request){
-        if(Auth::user()->id === intval($idUser)){
-            $restaurants = Restaurant::where('id', intval($idRest))->get();
-            if(!$restaurants){
-                return response(['error' => "The restaurant doesn't exist!"], 404);
-            }
-            else{
-                $restaurants->update([
-                    'name' => $request->name,
-                    'photo' => $request->photo,
-                    'street' => $request->street,
-                    'borough' => $request->borough,
-                    'cuisine' => $request->cuisine,
-                    'tables_number' => $request->tables_number,
-                    'telephone' => $request->telephone,
-                    'opening_hour' => $request->opening_hour,
-                    'closing_hour' => $request->closing_hour,
-                    'country' => $request->country,
-                ]);
+        if(Auth::user()->id === Restaurant::find($restaurant_id)->value('user_id')){
+            
+            $restaurant->update([
+                'name' => $request->name,
+                'photo' => $request->photo,
+                'street' => $request->street,
+                'borough' => $request->borough,
+                'cuisine' => $request->cuisine,
+                'tables_number' => $request->tables_number,
+                'telephone' => $request->telephone,
+                'opening_hour' => $request->opening_hour,
+                'closing_hour' => $request->closing_hour,
+                'country' => $request->country,
+            ]);
                 
-                return response(['success' => "restaurant updated successfully"], 200);
-            }
+            return response(['success' => "restaurant updated successfully"], 200);
         }else{
             return response(['error' => "Access denied!"], 403);
         }

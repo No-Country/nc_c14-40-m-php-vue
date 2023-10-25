@@ -33,12 +33,10 @@ Route::post('login', [PassportController::class, 'login'])->name('api.login');
 
 # RESTAURANTS ROUTES
 Route::get('/restaurants', [RestaurantController::class, 'getAllRestaurants'])->name('api.restaurants.index');
-Route::get('/restaurants/{id}', [RestaurantController::class, 'showRestaurantsOfUser'])->name('api.restaurants.showUserRestaurants')->middleware('auth:api');
-
+Route::get('/restaurants/{user_id}', [RestaurantController::class, 'showRestaurantsOfUser'])->name('api.restaurants.showUserRestaurants')->middleware('auth:api');
 Route::post('/restaurant', [RestaurantController::class, 'createRestaurant'])->name('api.restaurant.createRestaurant')->middleware('auth:api');
-// Route::delete('/restaurant/{idUser}/{idRest}',[RestaurantController::class, 'deleteRestaurant'])->name('api.restaurants.deleteRestaurant')->middleware('auth:api');
-// Route::get('/restaurant/{idUser}/{idRest}',[ RestaurantController::class, 'getRestaurant'])->name('api.restaurants.getRestaurant')->middleware('auth:api');
-// Route::put('/restaurant/{idUser}/{idRest}',[ RestaurantController::class, 'updateRestaurant'])->name('api.restaurants.updateRestaurant')->middleware('auth:api');
+Route::put('/restaurant/{restaurant_id}',[ RestaurantController::class, 'updateRestaurant'])->name('api.restaurants.updateRestaurant')->middleware('auth:api');
+Route::delete('/restaurant/{restaurant_id}',[RestaurantController::class, 'deleteRestaurant'])->name('api.restaurants.deleteRestaurant')->middleware('auth:api');
 
 # TABLES ROUTE
 Route::post('restaurant/{restaurant_id}/tables', [TableController::class, 'insertTablesCapacity'])->name('api.tables.insertTablesCapacity')->middleware('auth:api');

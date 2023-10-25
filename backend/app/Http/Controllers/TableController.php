@@ -11,7 +11,15 @@ use App\Models\Table;
 class TableController extends Controller
 {
     public function insertTablesCapacity(Request $request, $restaurant_id){
-        $number_of_tables_of_restaurant = Restaurant::where('user_id', Auth::user()->id)->value('tables_number');
+
+    if(!Restaurant::find($restaurant_id)){
+        return response(['message' => 'Restaurante no encontrado!'], 404);
+    }
+    if(Auth::user()->id !== Restaurant::find($restaurant_id)->value('user_id')){
+        return response(['message' => 'Este restaurante no es tuyo!'], 403);
+    }
+
+    $number_of_tables_of_restaurant = Restaurant::where('user_id', Auth::user()->id)->value('tables_number');
 
     $rules = [];
 
