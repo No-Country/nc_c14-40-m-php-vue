@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Services\AvailableDatesService;
 
 class RestaurantController extends Controller
 {
@@ -24,6 +25,9 @@ class RestaurantController extends Controller
     }
 
     public function createRestaurant(Request $request){
+
+        $availableDatesServiceMethods = new AvailableDatesService;
+
         $validator = Validator::make($request->all(),[
             'name' => 'required|string',
             'photo' => 'string',
@@ -54,8 +58,14 @@ class RestaurantController extends Controller
             'country'=>$request->country,
             'user_id' => Auth::user()->id,
         ]);
+        $lastIdOfRestaurantCreated = Restaurant::latest()->first()->id;
 
-        return response(['message' => 'Restaurant created! Now you need to indicate the capacity of your tables!', 'route_insert_tables' => '/api/restaurant/{restaurant_id}/tables', 'restaurant' => $restaurant], 200);
+
+        $availableDatesServiceMethods->insertAvailableDatesAccordingToOpeningAndClosingHour($lastIdOfRestaurantCreated, $request->opening_hour, $request->closing_hour);
+
+        return response(['message' => 'Restaurant created!!',
+                         'route_insert_tables' => '/api/restaurant/{restaurant_id}/tables',
+                         'restaurant' => $restaurant], 200);
     }
 
     public function deleteRestaurant($idUser,$idRest){
