@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
 {
@@ -25,22 +26,21 @@ class RestaurantController extends Controller
     public function createRestaurant(Request $request){
         $validator = Validator::make($request->all(),[
             'name' => 'required|string',
-            'photo' => 'required|string',
+            'photo' => 'string',
             'street' => 'required|string',
             'borough' => 'required|string',
             'cuisine' => 'required|string',
             'tables_number' => 'required|integer',
             'telephone' => 'required|string',
-            'opening_hour' => 'required|time',
-            'closing_hour' => 'required|time',
-            'country'=>$request->country,
+            'opening_hour' => 'required|date_format:H:i',
+            'closing_hour' => 'required|date_format:H:i',
+            'country'=> 'required|string',
         ]);
 
         if($validator->fails()){
             return response(['error' => $validator->errors()], 401); 
         }
         
-
         $restaurant = Restaurant::create([
             'name' => $request->name,
             'photo' => $request->photo,
@@ -52,10 +52,10 @@ class RestaurantController extends Controller
             'opening_hour' => $request->opening_hour,
             'closing_hour' => $request->closing_hour,
             'country'=>$request->country,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::user()->id,
         ]);
 
-        return response(['message' => 'Restaurant created!', 'restaurant' => $restaurant], 200);
+        return response(['message' => 'Restaurant created! Now you need to indicate the capacity of your tables!', 'route_insert_tables' => '/api/restaurant/{restaurant_id}/tables', 'restaurant' => $restaurant], 200);
     }
 
     public function deleteRestaurant($idUser,$idRest){
@@ -92,11 +92,11 @@ class RestaurantController extends Controller
     public function updateRestaurant($idUser,$idRest, Request $request){
         if(Auth::user()->id === intval($idUser)){
             $restaurants = Restaurant::where('id', intval($idRest))->get();
-            if(!$restaurant){
+            if(!$restaurants){
                 return response(['error' => "The restaurant doesn't exist!"], 404);
             }
             else{
-                $restaurant->update([
+                $restaurants->update([
                     'name' => $request->name,
                     'photo' => $request->photo,
                     'street' => $request->street,

@@ -23,6 +23,14 @@ class TableService{
     // muestrame la ocupacion del turno X en el dia seleccionado (en porcentaje) -> howManyTablesAreOcuppiedInOneTurn()
 
 
+    public function insertNumberOfTablesOfRestaurantInTablesTable($restaurant_id, $tables_number):void{
+        
+        for($i = 0; $i < $tables_number; $i++){
+            Table::insert('restaurant_id', $restaurant_id);
+        }
+        
+    }
+
     public function showRestaurantTables($restaurant_id){
         return Table::where('restaurant_id', $restaurant_id)->get();
     }
@@ -118,6 +126,7 @@ class TableService{
         }
         return $array;
     }
+    
 
 }
 
