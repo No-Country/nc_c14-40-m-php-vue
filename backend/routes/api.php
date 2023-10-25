@@ -41,7 +41,7 @@ Route::post('/restaurant', [RestaurantController::class, 'createRestaurant'])->n
 // Route::put('/restaurant/{idUser}/{idRest}',[ RestaurantController::class, 'updateRestaurant'])->name('api.restaurants.updateRestaurant')->middleware('auth:api');
 
 # TABLES ROUTE
-Route::get('restaurant/{restaurant_id}/tables', [TableController::class, 'insertTablesCapacity'])->name('api.tables.insertTablesCapacity')->middleware('auth:api');
+Route::post('restaurant/{restaurant_id}/tables', [TableController::class, 'insertTablesCapacity'])->name('api.tables.insertTablesCapacity')->middleware('auth:api');
 
 # REVIEWS ROUTES
 Route::get('/restaurants/reviews/all', [ReviewController::class, 'allRestaurantsAllReviews'])->name('api.reviews.all');

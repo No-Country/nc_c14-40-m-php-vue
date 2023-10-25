@@ -11,4 +11,9 @@ class ReservationTable extends Model
 
     protected $table = 'reservation_tables';
 
+    protected $fillable = [
+        'reservation_table_specs',
+        'table_id',
+        'date_id',
+    ];
 }

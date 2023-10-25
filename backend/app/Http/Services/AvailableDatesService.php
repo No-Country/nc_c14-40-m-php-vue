@@ -33,7 +33,6 @@ class AvailableDatesService{
             for ($j = 0; $j < count($result) - 1; $j++) {
                 $hour_start_formatted = date('H:i', strtotime("{$result[$j]}:00"));
                 
-                // Handle the case where $result[$j] is greater than $result[$j+1]
                 if ($result[$j] > $result[$j + 1]) {
                     $hour_end_formatted = date('H:i', strtotime("00:00"));
                 } else {
@@ -50,10 +49,6 @@ class AvailableDatesService{
             }
         }
     }
-    
-
-
-
 }
 
 ?>
