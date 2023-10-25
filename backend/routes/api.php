@@ -30,7 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [PassportController::class, 'register'])->name('api.register');
 Route::post('login', [PassportController::class, 'login'])->name('api.login');
 
-
 # RESTAURANTS ROUTES
 Route::get('/restaurants', [RestaurantController::class, 'getAllRestaurants'])->name('api.restaurants.index');
 Route::get('/restaurants/{user_id}', [RestaurantController::class, 'showRestaurantsOfUser'])->name('api.restaurants.showUserRestaurants')->middleware('auth:api');
@@ -40,6 +39,7 @@ Route::delete('/restaurant/{restaurant_id}',[RestaurantController::class, 'delet
 
 # TABLES ROUTE
 Route::post('restaurant/{restaurant_id}/tables', [TableController::class, 'insertTablesCapacity'])->name('api.tables.insertTablesCapacity')->middleware('auth:api');
+Route::put('restaurant/{restaurant_id}/tables', [TableController::class, 'editCapacityOfTables'])->name('api.tables.editCapacityOfTables')->middleware('auth:api');
 
 # REVIEWS ROUTES
 Route::get('/restaurants/reviews/all', [ReviewController::class, 'allRestaurantsAllReviews'])->name('api.reviews.all');
@@ -47,13 +47,11 @@ Route::get('/restaurant/{restaurant_id}/reviews/all', [ReviewController::class, 
 Route::get('/restaurant/{restaurant_id}/reviews/average', [ReviewController::class, 'restaurantAllReviewsRating'])->name('api.reviews.restaurant.average');
 Route::post('/restaurant/{restaurant_id}/review', [ReviewController::class, 'createReview'])->name('api.review.create')->middleware('auth:api');
 
-// Route::get('/restaurant/{restaurant_id}/tables', [ReservationsController::class, 'showRestaurantTables'])->name('api.show');
-
-
-
-
 # RESERVATIONS ROUTES
 Route::post('/restaurant/{restaurant_id}/reserve', [ReservationController::class, 'createReservation'])->name('api.reservation.create')->middleware('auth:api');
+
+// Route::get('/restaurant/{restaurant_id}/tables', [xxxxxxxxxxx::class, 'showRestaurantTables'])->name('api.show');
+
 // crear una reserva
 
 // ver todas las reservas de todos los restaurantes
