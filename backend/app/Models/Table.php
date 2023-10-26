@@ -12,7 +12,7 @@ class Table extends Model
     protected $table = 'tables';
 
     protected $fillable = [
-        // 'restaurant_id',
+        'restaurant_id',
         'capacity',
     ];
 
