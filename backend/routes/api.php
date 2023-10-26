@@ -50,16 +50,4 @@ Route::post('/restaurant/{restaurant_id}/review', [ReviewController::class, 'cre
 # RESERVATIONS ROUTES
 Route::post('/restaurant/{restaurant_id}/reserve', [ReservationController::class, 'createReservation'])->name('api.reservation.create')->middleware('auth:api');
 Route::get('/restaurant/{restaurant_id}/reservations', [ReservationController::class, 'showRestaurantReservations'])->name('api.reservation.show')->middleware('auth:api');
-// Route::get('/restaurant/{restaurant_id}/tables', [xxxxxxxxxxx::class, 'showRestaurantTables'])->name('api.show');
 
-// ver todas las reservas de todos los restaurantes
-// ver las reservas del restaurante
-// ver las reservas del restaurante del dia (lunes, martes...)
-// ver las reservas del restaurante del dia (lunes, martes...) a la hora concreta
-
-// funciones de servicio:
-// -> ver 
-// ->
-// ->
-// ->
-// ->
