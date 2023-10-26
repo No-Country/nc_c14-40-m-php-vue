@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // import { useUserStore } from "../stores/user";
 import authRouter from "@/modules/auth/router";
 import restaurantsRouter from "@/modules/restaurants/router";
-import isAuthenticatedGuard from "@/modules/auth/guards/auth-guard.js";
+// import isAuthenticatedGuard from "@/modules/auth/guards/auth-guard.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,9 +20,14 @@ const router = createRouter({
     },
     {
       path: "/restaurants",
-      beforeEnter: [isAuthenticatedGuard],
+      // beforeEnter: [isAuthenticatedGuard],
       ...restaurantsRouter,
       // meta: { requiresUnauth: true },
+    },
+    {
+      path: "/restaurants/reserves",
+      name: "reserves",
+      component: () => import("@/modules/restaurants/views/ReservesRest.vue"),
     },
     // {
     //   path: "/restaurants",
