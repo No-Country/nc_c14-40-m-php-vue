@@ -116,8 +116,9 @@ class ReservationController extends Controller
                             ]);
 
                             // AQUÍ TENDRIA QUE VOLVER A LLAMAR A LA FUNCION DE SABER SI ESTA TODO OCUPADO!!
-
-                            return response(['message' => "Reservation did it!"], 200);
+                            $reserva = AvailableDate::where('id', $date_id)->first();
+                            
+                            return response(['message' => "Reservation did it!", "restaurant" => Restaurant::find($restaurant_id), "day" => $day, "turn" => $reserva->hour_start, "table" => $claveMenorValor], 200);
                         }else{
                             AvailableDate::where('restaurant_id', $restaurant_id)->where('day', $day)->where('hour_start', $turn_selected)->update(['isFull?' => true]);
                             return response(['error' => "Lo siento mucho, pero está todo ocupado!"], 401);
@@ -135,4 +136,41 @@ class ReservationController extends Controller
             return response(['error' => "Restaurante no encontrado!"], 404);
         }
     }
+
+    public function showRestaurantReservations($restaurant_id) {
+        $restaurant = Restaurant::find($restaurant_id);
+        if (!$restaurant) {
+            return response(['error' => "Restaurante no encontrado!"], 404);
+        }
+    
+        $reservations = ReservationSpecs::where('restaurant_id', $restaurant_id)->get();
+        if ($reservations->isEmpty()) {
+            return response(['message' => "No hay reservas disponibles para este restaurante."], 200);
+        }
+    
+        $reservationData = [];
+        foreach ($reservations as $reservation) {
+            $reservationTable = ReservationTable::where('reservation_table_specs', $reservation->id)->first();
+
+            if ($reservationTable) {
+                $availableDate = AvailableDate::find($reservationTable->date_id);
+    
+                $reservationData[] = [
+                    'reservation_id' => $reservation->id,
+                    'quantity_people' => $reservation->quantity_people,
+                    'state_reservation' => $reservation->state_reservation,
+                    'price' => $reservation->price,
+                    'user_id' => $reservation->user_id,
+                    'date' => $availableDate->day,
+                    'hour_start' => $availableDate->hour_start,
+                    'table' => $reservationTable->table_id,
+                ];
+            }
+        }
+    
+        return response(['reservations' => $reservationData], 200);
+    }
+    
+    
+
 }
