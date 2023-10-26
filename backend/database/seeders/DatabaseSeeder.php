@@ -14,8 +14,9 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {        
-        User::factory(10)->create(); // <-- 10 users ≈ $this->call(UserSeeder::class) x 10;
+    {   
+        $this->call(UserSeeder::class);
+        User::factory(9)->create(); // <-- 10 users ≈ $this->call(UserSeeder::class) x 10;
         // Restaurant::factory(200)->create(); // 200 restaurants ≈ $this->call(RestaurantSeeder::class) x 200;
         $this->call(RestaurantSeeder::class);
         // RestaurantJSONSeeder::class, // <-- +3.000 RESTAURANTS
