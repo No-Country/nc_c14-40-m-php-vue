@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('photo')->nullable();
             $table->string('street');
-            $table->string('borough');
+            $table->string('web');
             $table->string('cuisine');
             $table->smallInteger('tables_number');
             $table->string('telephone');
+            $table->string('city');
             $table->string('country');
             $table->time('opening_hour');
             $table->time('closing_hour');
