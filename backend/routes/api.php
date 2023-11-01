@@ -8,6 +8,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 # LOGIN / REGISTER ROUTES
 Route::post('register', [PassportController::class, 'register'])->name('api.register');
 Route::post('login', [PassportController::class, 'login'])->name('api.login');
+Route::get('/user/{user_id}', [UserController::class, 'getUserInfo'])->name('api.user.getUserInfo');
 
 # RESTAURANTS ROUTES
 Route::get('/restaurants', [RestaurantController::class, 'getAllRestaurants'])->name('api.restaurants.index');
