@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Services\AvailableDatesService;
+use App\Models\AvailableDate;
 
 class RestaurantController extends Controller
 {
@@ -32,12 +33,13 @@ class RestaurantController extends Controller
             'name' => 'required|string',
             'photo' => 'string',
             'street' => 'required|string',
-            'borough' => 'required|string',
+            'web' => 'required|string',
             'cuisine' => 'required|string',
             'tables_number' => 'required|integer',
             'telephone' => 'required|string',
             'opening_hour' => 'required|date_format:H:i',
             'closing_hour' => 'required|date_format:H:i',
+            'city'=> 'required|string',
             'country'=> 'required|string',
         ]);
 
@@ -49,12 +51,13 @@ class RestaurantController extends Controller
             'name' => $request->name,
             'photo' => $request->photo,
             'street' => $request->street,
-            'borough' => $request->borough,
+            'web' => $request->web,
             'cuisine' => $request->cuisine,
             'tables_number' => $request->tables_number,
             'telephone' => $request->telephone,
             'opening_hour' => $request->opening_hour,
             'closing_hour' => $request->closing_hour,
+            'city'=>$request->city,
             'country'=>$request->country,
             'user_id' => Auth::user()->id,
         ]);
@@ -113,5 +116,11 @@ class RestaurantController extends Controller
         }
     }
     
+    public function availableDatesRestaurant($restaurant_id , $day){
+         
+        $available_turns_by_day =  AvailableDate::where('restaurant_id', $restaurant_id)->where('day', $day)->where('isFull?' , '=', false)->get();
+
+        return response(['day' => $day, 'available_dates' => $available_turns_by_day ], 200);
+    }
 
 }

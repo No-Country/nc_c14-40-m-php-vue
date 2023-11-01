@@ -38,6 +38,7 @@ Route::get('/restaurants/{user_id}', [RestaurantController::class, 'showRestaura
 Route::post('/restaurant', [RestaurantController::class, 'createRestaurant'])->name('api.restaurant.createRestaurant')->middleware('auth:api');
 Route::put('/restaurant/{restaurant_id}',[ RestaurantController::class, 'updateRestaurant'])->name('api.restaurants.updateRestaurant')->middleware('auth:api');
 Route::delete('/restaurant/{restaurant_id}',[RestaurantController::class, 'deleteRestaurant'])->name('api.restaurants.deleteRestaurant')->middleware('auth:api');
+Route::get('/restaurant/{restaurant_id}/availableDates/{day}', [RestaurantController::class, 'availableDatesRestaurant'])->name('api.restaurants.availableDatesRestaurant');
 
 # TABLES ROUTE
 Route::post('restaurant/{restaurant_id}/tables', [TableController::class, 'insertTablesCapacity'])->name('api.tables.insertTablesCapacity')->middleware('auth:api');

@@ -174,7 +174,7 @@ class RestaurantSeeder extends Seeder
     ]);
         Restaurant::create([ # 12
         'name' => "A casa do Porco",
-        'photo' => "https://www.joseanalija.com/wp-content/uploads/2019/08/Ambientes-Mauro-Holanda-14-Large-435x290.jpg",
+        'photo' => "https://s2-g1.glbimg.com/tT2yP_O3UaPtDh0aqQkGgAJLhqk=/0x0:1600x1200/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2022/A/f/bhuB9BTFuBwAermvXg0A/casa-do-porco-1.jpeg",
         'street' => "R. Araújo, 124",
         "web" => "https://acasadoporco.com.br/",
         "cuisine" => "Sandwichs",
