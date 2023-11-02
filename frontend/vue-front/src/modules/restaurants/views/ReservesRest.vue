@@ -216,7 +216,15 @@ const submitReview = async () => {
 
 const route = useRoute();
 const persons = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-const hours = ref(["10:30", "11:30", "12:00", "15:00", "18:00", "20:00", "21:00"]);
+const hours = ref([
+  "10:30-11:30",
+  "11:30-12:00",
+  "12:00-12:45",
+  "13:00-14:00",
+  "14:30-15:30",
+  "15:40-16:40",
+  "17:00-19:00",
+]);
 const restaurant = ref(null);
 const reviews = ref([]);
 
