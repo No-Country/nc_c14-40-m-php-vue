@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-
+import { useRouter } from "vue-router";
 const props = defineProps({
   restaurants: {
     type: Array,
@@ -9,38 +9,48 @@ const props = defineProps({
     type: Boolean,
   },
 });
-
-const selection = ref(1);
+const router = useRouter();
 const loading = ref(false);
 
 // const reserve = () => {
 //   loading.value = true;
 //   setTimeout(() => (loading.value = false), 2000);
 // };
+const reservarRestaurante = (restauranteId) => {
+  console.log(restauranteId); // Obtiene el enrutador
+  router.push({ name: "reserves", params: { restaurantId: restauranteId } });
+};
 </script>
 
 <template>
-  <div class="ma-12">
-    <h2 class="text-h4 text-center font-weight-bold">
+  <div class="py-[2px]">
+    <h2
+      class="text-h4 text-center font-weight-bold text-orange-400 shadow-sm shadow-black py-5"
+      style="text-shadow: 1px 1px 1px black"
+    >
       Últimas calificaciones cinco estrellas
     </h2>
   </div>
 
-  <div>
+  <div class="bg-gradient-to-l from-orange-200 via-orange-100 to-neutral-100 py-3">
     <v-slide-group
       v-model="model"
-      class="pa-0"
+      class="pa-0 mx-4"
       selected-class="bg-success"
       show-arrows
     >
       <v-slide-group-item v-for="(restaurant, i) in props.restaurants" :key="i">
         <v-skeleton-loader
           :loading="isLoading"
-          class="mx-auto border"
-          width="268"
+          class="mx-auto border mb-7"
+          width="400"
           type="card-avatar, article, actions"
         >
-          <v-card :loading="loading" class="ma-2 my-12" max-width="268">
+          <v-card
+            :loading="loading"
+            style="border: 2px solid rgb(234, 88, 12)"
+            max-width="400"
+          >
             <template v-slot:loader="{ isActive }">
               <v-progress-linear
                 :active="isActive"
@@ -53,19 +63,15 @@ const loading = ref(false);
             <v-img cover height="250" :src="props.restaurants[i].photo"></v-img>
 
             <v-card-item>
-              <v-card-title>{{ props.restaurants[i].name }}</v-card-title>
-
-              <v-card-subtitle>
-                <span class="me-1">Local Favorite</span>
-
-                <v-icon color="error" icon="fas fa-fire" size="small"></v-icon>
-              </v-card-subtitle>
+              <v-card-title class="text-[#EA580C]">{{
+                props.restaurants[i].name
+              }}</v-card-title>
             </v-card-item>
 
             <v-card-text>
               <v-row align="center" class="mx-0">
                 <v-rating
-                  :model-value="4.5"
+                  :model-value="5"
                   color="amber"
                   density="compact"
                   half-increments
@@ -73,40 +79,61 @@ const loading = ref(false);
                   size="small"
                 ></v-rating>
 
-                <div class="text-grey ms-4">4.5 (413)</div>
+                <div class="text-grey ms-4">5 (100)</div>
               </v-row>
 
-              <div class="my-4 text-subtitle-1">
-                $ • {{ props.restaurants[i].cuisine }}
+              <div class="mt-2 pt-4 text-subtitle-1 max-w-[400px] flex flex-row gap-4">
+                <font-awesome-icon
+                  :icon="['fas', 'utensils']"
+                  style="color: orange; margin-top: 5px"
+                />
+                <span class="text-orange-600">{{ props.restaurants[i].cuisine }}</span>
               </div>
-
-              <div>
-                Small plates, salads & sandwiches - an intimate setting with 12
-                indoor seats plus patio seating.
+              <div class="flex gap-5">
+                <font-awesome-icon
+                  :icon="['fas', 'location-dot']"
+                  style="color: orange"
+                  class="text-[1rem]"
+                />
+                <h2 class="text-orange-500">
+                  {{ props.restaurants[i].city }} | {{ props.restaurants[i].country }}
+                </h2>
+              </div>
+              <div class="p-3 flex flex-col gap-1">
+                <div class="flex justify-between">
+                  <span class="font-bold text-orange-600">Opening hour: </span
+                  ><span>{{ props.restaurants[i].opening_hour }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="font-bold text-orange-600">Closing hour: </span
+                  ><span>{{ props.restaurants[i].closing_hour }}</span>
+                </div>
+              </div>
+              <div class="flex gap-5 py-3">
+                <font-awesome-icon
+                  :icon="['fas', 'phone']"
+                  style="padding-top: 3px; color: orange"
+                />
+                <h2>{{ props.restaurants[i].telephone }}</h2>
               </div>
             </v-card-text>
 
             <v-divider class="mx-4 mb-1"></v-divider>
 
-            <v-card-title>Tonight's availability</v-card-title>
-
-            <div class="px-4">
-              <v-chip-group v-model="selection">
-                <v-chip>5:30PM</v-chip>
-
-                <v-chip>7:30PM</v-chip>
-
-                <v-chip>8:00PM</v-chip>
-
-                <v-chip>9:00PM</v-chip>
-              </v-chip-group>
-            </div>
-
             <v-card-actions>
               <v-btn
-                color="deep-purple-lighten-2"
+                color="white"
                 variant="text"
-                @click="$router.push({ name: 'reserves' })"
+                @click="reservarRestaurante(props.restaurants[i].id)"
+                style="
+                  color: white;
+                  margin: 0px auto;
+                  background: linear-gradient(
+                    to right,
+                    rgb(234, 88, 12),
+                    rgb(249, 115, 22)
+                  );
+                "
               >
                 Reserve
               </v-btn>

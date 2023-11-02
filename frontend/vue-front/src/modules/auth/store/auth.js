@@ -38,12 +38,11 @@ export const useAuthStore = defineStore("auth", () => {
       saveTokens(token);
 
       delete newUser.password;
-      status.value = "authenticated";
       user.value = newUser;
 
       return resp;
     } catch (error) {
-      return { ok: false, message: error.response.data.error.message };
+      console.log('ocurrio una errora');
     }
   };
 

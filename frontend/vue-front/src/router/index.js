@@ -25,29 +25,25 @@ const router = createRouter({
       // meta: { requiresUnauth: true },
     },
     {
-      path: "/restaurants/reserves",
+      path: "/restaurants/:restaurantId",
       name: "reserves",
       component: () => import("@/modules/restaurants/views/ReservesRest.vue"),
     },
-    // {
-    //   path: "/restaurants",
-    //   beforeEnter: [isAuthenticatedGuard],
-    //   name: "restaurants",
-    //   component: () => import("@/views/RestaurantsView.vue"),
-    // },
-    // {
-    //   path: "/restaurant/:id",
-    //   beforeEnter: [isAuthenticatedGuard],
-    //   name: "restaurant",
-    //   props: true,
-    //   component: () => import("@/views/RestaurantView.vue"),
-    // },
-    // {
-    //   path: "/top",
-    //   beforeEnter: [isAuthenticatedGuard],
-    //   name: "top",
-    //   component: () => import("@/views/TopView.vue"),
-    // },
+    {
+      path: "/restaurantsRecent",
+      name: "restaurantsRecent",
+      component: () => import("@/modules/restaurants/views/RestaurantsRecentView.vue"),
+    },
+    {
+      path: "/createRestaurant",
+      name: "createRestaurant",
+      component: () => import("@/modules/restaurants/views/CreateRestaurant.vue"),
+    },
+    {
+      path: "/reservation",
+      name: "reservation",
+      component: () => import("@/modules/restaurants/views/CreateReservation.vue"),
+    },
     // {
     //   path: "/nearme",
     //   beforeEnter: [isAuthenticatedGuard],
