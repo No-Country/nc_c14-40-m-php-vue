@@ -1,0 +1,48 @@
+<script setup>
+// import { fas fa-magnifying-glass, mdiDotsVertical } from "@mdi/js";
+import { ref } from "vue";
+
+import AccountMenu from "./AccountMenu.vue";
+import { useDisplay } from "vuetify";
+
+const { mobile } = useDisplay();
+const drawer = ref(false);
+</script>
+
+<template>
+  <!-- <v-app> -->
+  <v-toolbar color="primary">
+    <v-toolbar-items>
+      <v-btn
+        v-if="mobile"
+        icon="fas fa-ellipsis-vertical"
+        @click.stop="drawer = !drawer"
+      ></v-btn>
+      <v-btn icon :to="{ name: 'home' }"> R </v-btn>
+    </v-toolbar-items>
+    <v-spacer></v-spacer>
+    <v-toolbar-items>
+      <v-btn icon>
+        <v-icon icon="fas fa-magnifying-glass"></v-icon>
+      </v-btn>
+      <v-list-item v-if="!mobile" :to="{ name: 'createRestaurant' }"
+        >Crear restaurante</v-list-item
+      >
+      <v-list-item v-if="!mobile" :to="{ name: 'restaurantsRecent' }"
+        >Más Recientes</v-list-item
+      >
+      <v-list-item v-if="!mobile" :to="{ name: 'restaurants' }">Nosotros</v-list-item>
+      <v-list-item v-if="!mobile" :to="{ name: 'auth' }">Ingresar</v-list-item>
+      <AccountMenu />
+    </v-toolbar-items>
+  </v-toolbar>
+  <v-navigation-drawer v-if="mobile" v-model="drawer" location="bottom">
+    <v-list-item :to="{ name: 'restaurants' }">Crear restaurante</v-list-item>
+    <v-list-item :to="{ name: 'restaurantsRecent' }">Más recientes</v-list-item>
+    <v-list-item :to="{ name: 'restaurants' }">Nosotros</v-list-item>
+    <v-list-item :to="{ name: 'auth' }">Ingresar</v-list-item>
+  </v-navigation-drawer>
+  <!-- </v-app> -->
+</template>
+
+<!-- <style scoped></style> -->
